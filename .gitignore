@@ -1,4 +1,16 @@
-# Dependencies
+# ---------------------------------------------------------------
+# Kept on disk, never published (GitHub Pages serves every tracked file)
+# ---------------------------------------------------------------
+
+# Briefs and source copy
+claude-code-prompt.md
+noa-arad-v2-prompt.md
+noa-arad-content.md
+
+# Build tooling (run locally: npm run optimize / npm run serve)
+package.json
+package-lock.json
+scripts/
 node_modules/
 
 # Original uploads (the site uses images/ and images/opt/)
