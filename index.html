@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>נועה ארד – נדל"ן פרטי · רעננה והשרון</title>
+  <meta name="description" content="נועה ארד – נדל&quot;ן פרטי ברעננה והשרון. וילות ופנטהאוזים נבחרים, צילום מקצועי, שיווק אישי וליווי צמוד עד החתימה. אתר תצוגה.">
+  <meta name="theme-color" content="#0E0D0B">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="he_IL">
+  <meta property="og:title" content="נועה ארד – נדל&quot;ן פרטי">
+  <meta property="og:description" content="כל בית מספר סיפור. התפקיד שלי הוא למצוא לו את הקונה הנכון.">
+  <meta property="og:image" content="images/opt/og-villa-exterior.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="וילת אבן מודרנית עם גינה, רעננה">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="נועה ארד – נדל&quot;ן פרטי">
+  <meta name="twitter:description" content="כל בית מספר סיפור. התפקיד שלי הוא למצוא לו את הקונה הנכון.">
+  <meta name="twitter:image" content="images/opt/og-villa-exterior.jpg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;500&family=Heebo:wght@300;400;500&display=swap">
+
+  <link rel="preload" as="image" type="image/webp" imagesrcset="images/opt/entrance-door-1280.webp 1280w, images/opt/entrance-door-2560.webp 2560w" imagesizes="100vw" fetchpriority="high">
+  <link rel="preload" as="image" type="image/webp" imagesrcset="images/opt/entrance-hall-1280.webp 1280w, images/opt/entrance-hall-2560.webp 2560w" imagesizes="100vw">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"></noscript>
+  <link rel="stylesheet" href="css/style.css">
+  <script>document.documentElement.classList.add("js");</script>
+  <noscript><style>.preloader{display:none!important}</style></noscript>
+</head>
+<body>
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader__inner">
+      <p class="preloader__name">נועה ארד</p>
+      <span class="preloader__line"><span class="preloader__fill"></span></span>
+    </div>
+  </div>
+  <script>/* failsafe: never leave the preloader up if scripts fail */setTimeout(function(){var p=document.getElementById("preloader");if(p&&!p.dataset.done)p.remove();},7000);</script>
+  <div class="scroll-progress" aria-hidden="true"></div>
+  <a class="skip-link" href="#main">דילוג לתוכן הראשי</a>
+
+  <!-- ===== Header ===== -->
+  <header class="site-header" id="top">
+    <div class="site-header__inner">
+      <a class="logo" href="#top" aria-label="נועה ארד – לראש העמוד">נועה ארד</a>
+      <nav class="site-nav" aria-label="ניווט ראשי">
+        <ul>
+          <li><a href="#listings">נכסים</a></li>
+          <li><a href="#valuation">הערכת שווי</a></li>
+          <li><a href="#contact">צור קשר</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+
+    <!-- ===== 1. Hero: through the door ===== -->
+    <section class="hero" id="hero" aria-labelledby="hero-title">
+      <div class="hero__stage">
+        <div class="hero__layer hero__layer--door" style="background-image:url(images/opt/entrance-door-lqip.webp)">
+          <picture>
+            <source type="image/webp" srcset="images/opt/entrance-door-1280.webp 1280w, images/opt/entrance-door-2560.webp 2560w" sizes="100vw">
+            <img src="images/entrance-door.jpg" width="1672" height="941" alt="חזית סימטרית של וילת אבן, דלת כניסה גבוהה מעץ אגוז במרכז" fetchpriority="high" decoding="async">
+          </picture>
+        </div>
+        <div class="hero__layer hero__layer--hall" style="background-image:url(images/opt/entrance-hall-lqip.webp)">
+          <picture>
+            <source type="image/webp" srcset="images/opt/entrance-hall-1280.webp 1280w, images/opt/entrance-hall-2560.webp 2560w" sizes="100vw">
+            <img src="images/entrance-hall.jpg" width="1672" height="941" alt="מבואה סימטרית בגובה כפול הנפתחת אל הבריכה" decoding="async">
+          </picture>
+        </div>
+        <div class="hero__flash" aria-hidden="true"></div>
+
+        <div class="hero__content">
+          <h1 class="hero__title" id="hero-title">נועה ארד</h1>
+          <p class="hero__subtitle">נדל"ן פרטי · רעננה והשרון</p>
+        </div>
+        <a class="hero__scroll" href="#story">
+          <span>גללו כדי להיכנס</span>
+          <span class="hero__scroll-line" aria-hidden="true"></span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ===== 2. The story ===== -->
+    <section class="story" id="story" aria-labelledby="story-title">
+      <div class="story__bg" aria-hidden="true" style="background-image:url(images/opt/entrance-hall-lqip.webp)">
+        <picture>
+          <source type="image/webp" srcset="images/opt/entrance-hall-1280.webp 1280w, images/opt/entrance-hall-2560.webp 2560w" sizes="100vw">
+          <img src="images/entrance-hall.jpg" width="1672" height="941" alt="" loading="lazy" decoding="async">
+        </picture>
+      </div>
+      <div class="container story__inner">
+        <p class="label">המבואה</p>
+        <h2 class="story__title" id="story-title">כל בית מספר סיפור.</h2>
+        <p class="story__subtitle">התפקיד שלי הוא למצוא לו את הקונה הנכון.</p>
+        <div class="story__lines">
+          <p>כבר 14 שנה אני מוכרת בתים פרטיים ופנטהאוזים בשרון.</p>
+          <p>אני לא עובדת עם הרבה נכסים, אני עובדת עם הנכונים.</p>
+          <p>כל נכס מקבל צילום מקצועי, שיווק אישי וליווי צמוד עד החתימה.</p>
+        </div>
+
+        <dl class="stats">
+          <div class="stat">
+            <dt class="stat__label">נכסים נמכרו</dt>
+            <dd class="stat__value"><span class="stat__num" data-count="120" data-decimals="0">120</span><span class="stat__suffix">+</span></dd>
+          </div>
+          <div class="stat">
+            <dt class="stat__label">היקף עסקאות</dt>
+            <dd class="stat__value"><span class="stat__num" data-count="1.2" data-decimals="1">1.2</span><span class="stat__suffix"> מיליארד ₪</span></dd>
+          </div>
+          <div class="stat">
+            <dt class="stat__label">ימים בממוצע עד מכירה</dt>
+            <dd class="stat__value"><span class="stat__num" data-count="47" data-decimals="0">47</span></dd>
+          </div>
+          <div class="stat">
+            <dt class="stat__label">מהמחיר המבוקש</dt>
+            <dd class="stat__value"><span class="stat__num" data-count="98" data-decimals="0">98</span><span class="stat__suffix">%</span></dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ===== 3. The tour ===== -->
+    <section class="tour" id="tour" aria-labelledby="tour-title">
+      <div class="tour__head container">
+        <p class="label">הסיור</p>
+        <h2 class="tour__title" id="tour-title">סיור בבית · אחוזה, רעננה</h2>
+      </div>
+      <div class="tour__viewport">
+        <ol class="tour__track">
+          <li class="tour__panel">
+            <div class="tour__media" style="background-image:url(images/opt/entrance-hall-lqip.webp)">
+              <picture>
+                <source type="image/webp" srcset="images/opt/entrance-hall-1280.webp 1280w, images/opt/entrance-hall-2560.webp 2560w" sizes="100vw">
+                <img src="images/entrance-hall.jpg" width="1672" height="941" alt="טרקלין בגובה כפול עם ויטרינות אל הגינה והבריכה" loading="lazy" decoding="async">
+              </picture>
+            </div>
+            <div class="tour__caption">
+              <p class="label">01 — הטרקלין</p>
+              <h3>הטרקלין</h3>
+              <p>חלל בגובה כפול שנפתח ישר אל הגינה.</p>
+            </div>
+          </li>
+          <li class="tour__panel">
+            <div class="tour__media" style="background-image:url(images/opt/living-room-lqip.webp)">
+              <picture>
+                <source type="image/webp" srcset="images/opt/living-room-1280.webp 1280w, images/opt/living-room-2560.webp 2560w" sizes="100vw">
+                <img src="images/living-room.jpg" width="1536" height="864" alt="סלון משפחתי עם קיר אבן טבעית, רהיטי עץ אגוז ואור שקיעה" loading="lazy" decoding="async">
+              </picture>
+            </div>
+            <div class="tour__caption">
+              <p class="label">02 — הסלון המשפחתי</p>
+              <h3>הסלון המשפחתי</h3>
+              <p>אבן טבעית, עץ אגוז ושקיעה בכל ערב.</p>
+            </div>
+          </li>
+          <li class="tour__panel">
+            <div class="tour__media" style="background-image:url(images/opt/dining-kitchen-lqip.webp)">
+              <picture>
+                <source type="image/webp" srcset="images/opt/dining-kitchen-1280.webp 1280w, images/opt/dining-kitchen-2560.webp 2560w" sizes="100vw">
+                <img src="images/dining-kitchen.jpg" width="1672" height="941" alt="מטבח ופינת אוכל עם שולחן ארוך וויטרינה הפונה לבריכה" loading="lazy" decoding="async">
+              </picture>
+            </div>
+            <div class="tour__caption">
+              <p class="label">03 — המטבח ופינת האוכל</p>
+              <h3>המטבח ופינת האוכל</h3>
+              <p>שולחן לשנים-עשר, ויטרינה לבריכה.</p>
+            </div>
+          </li>
+          <li class="tour__panel">
+            <div class="tour__media" style="background-image:url(images/opt/master-bedroom-lqip.webp)">
+              <picture>
+                <source type="image/webp" srcset="images/opt/master-bedroom-1280.webp 1280w, images/opt/master-bedroom-2560.webp 2560w" sizes="100vw">
+                <img src="images/master-bedroom.jpg" width="1672" height="941" alt="סוויטת הורים מוארת עם חלונות אל עצי זית" loading="lazy" decoding="async">
+              </picture>
+            </div>
+            <div class="tour__caption">
+              <p class="label">04 — סוויטת ההורים</p>
+              <h3>סוויטת ההורים</h3>
+              <p>בוקר שמתחיל בעצי זית.</p>
+              <a class="btn" href="property.html?id=achuza-raanana"><span>לעמוד הנכס ←</span></a>
+            </div>
+          </li>
+        </ol>
+        <div class="tour__hud" aria-hidden="true">
+          <span class="tour__count"><span class="tour__current">01</span> / 04</span>
+          <span class="tour__progress"><span class="tour__progress-bar"></span></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 4. Listings ===== -->
+    <section class="listings" id="listings" aria-labelledby="listings-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="label">נכסים למכירה</p>
+          <h2 id="listings-title">נכסים נבחרים</h2>
+          <p class="section-head__sub">בלעדיות מלאה. כל נכס נבחר בקפידה.</p>
+          <span class="hairline" aria-hidden="true"></span>
+        </header>
+        <div class="listings__featured" data-listings="featured"></div>
+        <ul class="listings__grid" data-listings="grid"></ul>
+      </div>
+    </section>
+
+    <!-- ===== 5. Sold wall ===== -->
+    <section class="sold" id="sold" aria-labelledby="sold-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="label">נמכרו</p>
+          <h2 id="sold-title">נמכרו לאחרונה</h2>
+          <p class="section-head__sub">כל חותמת היא משפחה שמצאה בית.</p>
+          <span class="hairline" aria-hidden="true"></span>
+        </header>
+        <ul class="sold__wall" data-listings="sold"></ul>
+      </div>
+    </section>
+
+    <!-- ===== 6. Map ===== -->
+    <section class="map-section" id="map" aria-labelledby="map-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="label">אזורי פעילות</p>
+          <h2 id="map-title">השרון, עסקה אחרי עסקה</h2>
+          <p class="section-head__sub">רעננה · הרצליה פיתוח · כפר שמריהו · סביון · כוכב יאיר · תל אביב</p>
+          <span class="hairline" aria-hidden="true"></span>
+        </header>
+        <div class="map" id="sharon-map" role="region" aria-label="מפת אזורי הפעילות בשרון"></div>
+      </div>
+    </section>
+
+    <div class="dawn">
+    <!-- ===== 7. Testimonials ===== -->
+    <section class="testimonials" id="testimonials" aria-labelledby="testimonials-title" aria-roledescription="קרוסלה">
+      <div class="container">
+        <h2 class="visually-hidden" id="testimonials-title">המלצות</h2>
+        <div class="testimonials__stage" aria-live="polite">
+          <figure class="testimonial is-active" id="t-1" role="group" aria-roledescription="המלצה" aria-label="1 מתוך 3">
+            <blockquote><p>"נועה מכרה לנו את הבית תוך חודש, מעל המחיר שקיווינו. הליווי היה אישי מהיום הראשון."</p></blockquote>
+            <figcaption>— משפחת לוין, רעננה</figcaption>
+          </figure>
+          <figure class="testimonial" id="t-2" role="group" aria-roledescription="המלצה" aria-label="2 מתוך 3" aria-hidden="true" inert>
+            <blockquote><p>"חיפשנו פנטהאוז שנה שלמה. נועה מצאה לנו אותו בשלושה שבועות, עוד לפני שהוא עלה לשיווק."</p></blockquote>
+            <figcaption>— דנה ועמית ש., הרצליה פיתוח</figcaption>
+          </figure>
+          <figure class="testimonial" id="t-3" role="group" aria-roledescription="המלצה" aria-label="3 מתוך 3" aria-hidden="true" inert>
+            <blockquote><p>"מקצועית, דיסקרטית ותמיד זמינה. בדיוק מה שצריך כשמוכרים בית של חיים שלמים."</p></blockquote>
+            <figcaption>— יורם ב., כפר שמריהו</figcaption>
+          </figure>
+        </div>
+        <div class="testimonials__dots" role="tablist" aria-label="בחירת המלצה">
+          <button type="button" role="tab" aria-selected="true" aria-controls="t-1" aria-label="המלצה 1"></button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="t-2" aria-label="המלצה 2" tabindex="-1"></button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="t-3" aria-label="המלצה 3" tabindex="-1"></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 8. Valuation form ===== -->
+    <section class="valuation theme-cream" id="valuation" aria-labelledby="valuation-title">
+      <div class="container valuation__inner">
+        <header class="section-head">
+          <p class="label">הערכת שווי</p>
+          <h2 id="valuation-title">כמה שווה הבית שלך היום?</h2>
+          <p class="section-head__sub">הערכת שווי אישית, ללא עלות וללא התחייבות.</p>
+          <span class="hairline" aria-hidden="true"></span>
+        </header>
+
+        <form class="vform" id="valuation-form" novalidate>
+          <div class="vform__progress" aria-hidden="true"><span class="vform__progress-bar"></span></div>
+          <p class="vform__step-count" aria-live="polite">שלב <span data-step-current>1</span> מתוך 4</p>
+
+          <fieldset class="vform__step is-active" data-step="1">
+            <legend>סוג הנכס</legend>
+            <div class="vform__choices">
+              <label class="choice"><input type="radio" name="type" value="וילה" required><span>וילה</span></label>
+              <label class="choice"><input type="radio" name="type" value="פנטהאוז"><span>פנטהאוז</span></label>
+              <label class="choice"><input type="radio" name="type" value="דירת גן"><span>דירת גן</span></label>
+              <label class="choice"><input type="radio" name="type" value="קוטג'"><span>קוטג'</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="vform__step" data-step="2" hidden>
+            <legend>עיר + שכונה</legend>
+            <div class="vform__fields">
+            <div class="field">
+              <label for="f-city">עיר</label>
+              <input id="f-city" name="city" type="text" autocomplete="address-level2" required>
+            </div>
+            <div class="field">
+              <label for="f-hood">שכונה</label>
+              <input id="f-hood" name="neighborhood" type="text" required>
+            </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="vform__step" data-step="3" hidden>
+            <legend>חדרים + שטח בנוי (מ"ר)</legend>
+            <div class="vform__fields">
+            <div class="field">
+              <label for="f-rooms">חדרים</label>
+              <input id="f-rooms" name="rooms" type="number" inputmode="decimal" min="1" max="30" step="0.5" required>
+            </div>
+            <div class="field">
+              <label for="f-area">שטח בנוי (מ"ר)</label>
+              <input id="f-area" name="area" type="number" inputmode="numeric" min="20" max="5000" required>
+            </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="vform__step" data-step="4" hidden>
+            <legend>שם מלא + טלפון</legend>
+            <div class="vform__fields">
+            <div class="field">
+              <label for="f-name">שם מלא</label>
+              <input id="f-name" name="name" type="text" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="f-phone">טלפון</label>
+              <input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" placeholder="050-000-0000" required>
+            </div>
+            </div>
+          </fieldset>
+
+          <p class="vform__error" id="vform-error" role="alert" aria-live="assertive"></p>
+
+          <div class="vform__nav">
+            <button type="button" class="btn btn--ghost" data-prev hidden><span>→ חזרה</span></button>
+            <button type="button" class="btn" data-next><span>המשך ←</span></button>
+            <button type="submit" class="btn" data-submit hidden><span>קבלו הערכת שווי</span></button>
+          </div>
+        </form>
+
+        <div class="vform__thanks" id="valuation-thanks" tabindex="-1" hidden>
+          <p class="vform__thanks-text">תודה! אחזור אליך תוך 24 שעות עם הערכה ראשונית. – נועה</p>
+          <p class="vform__demo-note">אתר תצוגה – הפרטים לא נשלחים</p>
+        </div>
+      </div>
+    </section>
+
+    </div><!-- /.dawn -->
+
+    <!-- ===== 9. Finale ===== -->
+    <section class="finale" id="contact" aria-labelledby="finale-title">
+      <div class="finale__media" style="background-image:url(images/opt/villa-pool-sunset-lqip.webp)">
+        <picture>
+          <source type="image/webp" srcset="images/opt/villa-pool-sunset-1280.webp 1280w, images/opt/villa-pool-sunset-2560.webp 2560w" sizes="100vw">
+          <img src="images/villa-pool-sunset.jpg" width="1672" height="941" alt="וילה עם בריכה באור שקיעה" loading="lazy" decoding="async">
+        </picture>
+      </div>
+      <div class="finale__content container">
+        <h2 class="finale__title" id="finale-title">הבית הבא שלך כבר מחכה.</h2>
+        <a class="btn btn--solid finale__cta" href="https://wa.me/972500000000" target="_blank" rel="noopener"><span>דברו איתי בוואטסאפ</span></a>
+        <address class="finale__details">
+          <a href="tel:+972500000000" dir="ltr">050-000-0000</a> ·
+          <a href="mailto:noa@example.co.il">noa@example.co.il</a> ·
+          <span>רחוב אחוזה, רעננה</span>
+          <span class="finale__note">(פרטים להמחשה)</span>
+        </address>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <p>נועה ארד – נדל"ן פרטי · מתווכת מורשית (מספר רישיון להמחשה)</p>
+      <nav aria-label="קישורים משפטיים">
+        <ul class="site-footer__links">
+          <li><a href="accessibility.html">הצהרת נגישות</a></li>
+          <li><a href="privacy.html">מדיניות פרטיות</a></li>
+          <li><a href="terms.html">תנאי שימוש</a></li>
+        </ul>
+      </nav>
+      <p class="site-footer__demo">אתר תצוגה – כל התכנים להמחשה בלבד</p>
+    </div>
+  </footer>
+
+  <!-- ===== Floating WhatsApp ===== -->
+  <a class="wa-float" href="https://wa.me/972500000000" target="_blank" rel="noopener" aria-label="שליחת הודעת וואטסאפ לנועה">
+    <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm0 18.15c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 4.54 0 8.24 3.7 8.24 8.24 0 4.55-3.7 8.24-8.24 8.24Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.43-.06-.13-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28Z"/></svg>
+  </a>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" defer></script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

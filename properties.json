@@ -1,0 +1,79 @@
+{
+  "forSale": [
+    {
+      "id": "achuza-raanana",
+      "title": "וילה באחוזה",
+      "city": "רעננה",
+      "price": 9800000,
+      "rooms": 7,
+      "builtArea": 420,
+      "plotArea": 750,
+      "features": ["בריכה", "תקרה כפולה", "סוויטת הורים", "מעלית"],
+      "description": "וילת אבן חדשה עם טרקלין בגובה כפול, ויטרינות מלאות לגינה ובריכה מחוממת.",
+      "image": "villa-exterior.jpg",
+      "featured": true
+    },
+    {
+      "id": "herzliya-penthouse",
+      "title": "פנטהאוז מול המרינה",
+      "city": "הרצליה פיתוח",
+      "price": 18500000,
+      "rooms": 5,
+      "builtArea": 260,
+      "terraceArea": 180,
+      "features": ["נוף לים", "בריכה פרטית", "מרפסת 180 מ\"ר"],
+      "description": "מרפסת ענקית עם בריכה פרטית ונוף פתוח למרינה ולים.",
+      "image": "herzliya-penthouse.jpg"
+    },
+    {
+      "id": "savyon-white",
+      "title": "וילה לבנה בין הדקלים",
+      "city": "סביון",
+      "price": 16200000,
+      "rooms": 7,
+      "builtArea": 450,
+      "plotArea": 1000,
+      "features": ["בריכה", "דונם מגרש", "קומה אחת+"],
+      "description": "קווים נקיים, זכוכית מקיר לקיר ובריכה ארוכה בין דקלים בוגרים.",
+      "image": "savyon.jpg"
+    },
+    {
+      "id": "raanana-garden",
+      "title": "דירת גן בבניין בוטיק",
+      "city": "רעננה",
+      "price": 5200000,
+      "rooms": 5,
+      "builtArea": 160,
+      "gardenArea": 220,
+      "features": ["גינה 220 מ\"ר", "פרגולה", "חניה כפולה"],
+      "description": "דירת גן מוארת עם פרגולה, עץ לימון ויציאה ישירה מהסלון לדשא.",
+      "image": "raanana-garden.jpg"
+    }
+  ],
+  "sold": [
+    {
+      "id": "tlv-bauhaus",
+      "title": "בית באוהאוס משוחזר",
+      "city": "תל אביב",
+      "price": 24000000,
+      "daysToSell": 38,
+      "image": "tlv-bauhaus.jpg"
+    },
+    {
+      "id": "kfar-shmaryahu-stone",
+      "title": "בית אבן כפרי",
+      "city": "כפר שמריהו",
+      "price": 22500000,
+      "daysToSell": 52,
+      "image": "kfar-shmaryahu.jpg"
+    },
+    {
+      "id": "kochav-yair-night",
+      "title": "וילה עם בריכה מקורה",
+      "city": "כוכב יאיר",
+      "price": 9500000,
+      "daysToSell": 29,
+      "image": "kochav-yair.jpg"
+    }
+  ]
+}

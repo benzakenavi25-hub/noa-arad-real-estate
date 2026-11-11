@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>נכס · נועה ארד – נדל"ן פרטי</title>
+  <meta name="description" content="פרטי נכס – נועה ארד, נדל&quot;ן פרטי ברעננה והשרון. אתר תצוגה.">
+  <meta name="theme-color" content="#0E0D0B">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+  <!-- Start loading the listing data at once, then preload its hero image (js/property.js reuses this fetch).
+       It sits above the stylesheets on purpose: an inline script after a pending stylesheet waits for it. -->
+  <script>
+  (function () {
+    var id = new URLSearchParams(location.search).get('id');
+    window.__properties = fetch('properties.json').then(function (r) {
+      if (!r.ok) throw new Error('properties.json: ' + r.status);
+      return r.json();
+    });
+    window.__properties.then(function (d) {
+      var p = (d.forSale || []).concat(d.sold || []).filter(function (x) { return x.id === id; })[0];
+      if (!p) return;
+      var n = p.image.replace(/\.(jpe?g|png)$/i, '');
+      // Same choice as the hero <picture>: the portrait crop on portrait screens, the srcset otherwise.
+      var add = function (media, attrs) {
+        var l = document.createElement('link');
+        l.rel = 'preload'; l.as = 'image'; l.type = 'image/webp'; l.media = media;
+        l.setAttribute('fetchpriority', 'high');
+        for (var k in attrs) l.setAttribute(k, attrs[k]);
+        document.head.appendChild(l);
+      };
+      add('(max-aspect-ratio: 3/4)', { href: 'images/opt/' + n + '-portrait.webp' });
+      add('(min-aspect-ratio: 3001/4000)', {   // just above 3:4, the complement of the portrait query
+        imagesrcset: 'images/opt/' + n + '-768.webp 768w, images/opt/' + n + '-1280.webp 1280w, images/opt/' + n + '-2560.webp 2560w',
+        imagesizes: '100vw'
+      });
+    }).catch(function () {});
+  })();
+  </script>
+  <link rel="modulepreload" href="js/property.js">
+  <link rel="modulepreload" href="js/listings.js">
+  <link rel="modulepreload" href="js/map.js">
+  <link rel="modulepreload" href="js/sections.js">
+  <link rel="modulepreload" href="js/motion.js">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="he_IL">
+  <meta property="og:title" content="נועה ארד – נדל&quot;ן פרטי">
+  <meta property="og:image" content="images/opt/og-villa-exterior.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;500&family=Heebo:wght@300;400;500&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"></noscript>
+  <link rel="stylesheet" href="css/style.css">
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body class="property-page">
+  <a class="skip-link" href="#main">דילוג לתוכן הראשי</a>
+
+  <header class="site-header is-solid">
+    <div class="site-header__inner">
+      <a class="logo" href="index.html" aria-label="נועה ארד – לדף הבית">נועה ארד</a>
+      <nav class="site-nav" aria-label="ניווט ראשי">
+        <ul>
+          <li><a href="index.html#listings">נכסים</a></li>
+          <li><a href="index.html#valuation">הערכת שווי</a></li>
+          <li><a href="index.html#contact">צור קשר</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Rendered by js/property.js from properties.json (?id=...) -->
+  <main id="main" class="property" tabindex="-1" aria-live="polite" aria-busy="true">
+    <p class="property__loading container">טוען את פרטי הנכס…</p>
+    <noscript><p class="container">כדי לצפות בפרטי הנכס יש להפעיל JavaScript. <a href="index.html#listings">חזרה לנכסים</a></p></noscript>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <p>נועה ארד – נדל"ן פרטי · מתווכת מורשית (מספר רישיון להמחשה)</p>
+      <nav aria-label="קישורים משפטיים">
+        <ul class="site-footer__links">
+          <li><a href="accessibility.html">הצהרת נגישות</a></li>
+          <li><a href="privacy.html">מדיניות פרטיות</a></li>
+          <li><a href="terms.html">תנאי שימוש</a></li>
+        </ul>
+      </nav>
+      <p class="site-footer__demo">אתר תצוגה – כל התכנים להמחשה בלבד</p>
+    </div>
+  </footer>
+
+  <!-- Fullscreen gallery lightbox -->
+  <dialog class="lightbox" id="lightbox" aria-label="גלריית תמונות">
+    <button type="button" class="lightbox__close" data-lb-close aria-label="סגירת הגלריה">
+      <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>
+    </button>
+    <button type="button" class="lightbox__nav lightbox__nav--prev" data-lb-prev aria-label="התמונה הקודמת">→</button>
+    <figure class="lightbox__figure">
+      <img class="lightbox__img" alt="" decoding="async">
+      <figcaption class="lightbox__caption"><span data-lb-text></span><span class="lightbox__count" data-lb-count></span></figcaption>
+    </figure>
+    <button type="button" class="lightbox__nav lightbox__nav--next" data-lb-next aria-label="התמונה הבאה">←</button>
+  </dialog>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" defer></script>
+  <script type="module" src="js/property.js" async></script>
+</body>
+</html>
