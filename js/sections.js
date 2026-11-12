@@ -403,5 +403,48 @@ export function sectionAnimations({ gsap, ScrollTrigger, SplitText, desktop }) {
       .from($('.finale__details', finale), { autoAlpha: 0, ease: 'none', duration: .18 }, .78);
   }
 
+  /* ---------------------------------------------------------
+     Scroll fade for static text (everything above that has no animation of its own).
+     Scrubbed: opacity 0→1, y 16→0, blur 6→0 (no blur on mobile) while the element's top
+     travels from 95% to 65% of the viewport. One ScrollTrigger per section, not per element:
+     its onUpdate reads every rect first, then writes.
+     --------------------------------------------------------- */
+  {
+    const GROUPS = [
+      ['.map-section', ['.testimonials']],
+      ['#valuation', ['.vform__step-count', '.vform legend', '.vform .field label']],
+      ['.site-footer', ['.site-footer__inner > *']],
+    ];
+    const START = .95, END = .65;
+
+    GROUPS.forEach(([sectionSel, itemSels]) => {
+      const section = $(sectionSel);
+      if (!section) return;
+      const items = itemSels.flatMap(sel => $$(sel, section)).map(el => ({ el, p: -1 }));
+      if (!items.length) return;
+
+      const update = () => {
+        const vh = window.innerHeight;
+        const toBottom = ScrollTrigger.maxScroll(window) - window.scrollY;      // scroll left before the page ends
+        const tops = items.map(it => it.el.getBoundingClientRect().top);        // reads…
+        items.forEach((it, i) => {                                                // …then writes
+          // Text at the very end of the page can never reach the 65% line: it finishes at the highest point it can reach.
+          const endLine = Math.min(vh * START - 24, Math.max(vh * END, tops[i] - toBottom));
+          const p = Math.round(clamp01((vh * START - tops[i]) / (vh * START - endLine)) * 200) / 200;
+          if (p === it.p) return;
+          it.p = p;
+          const s = it.el.style;
+          if (p >= 1) { s.opacity = ''; s.transform = ''; s.filter = ''; return; }
+          s.opacity = p;
+          s.transform = `translate3d(0, ${(16 * (1 - p)).toFixed(2)}px, 0)`;
+          if (desktop) s.filter = `blur(${(6 * (1 - p)).toFixed(2)}px)`;
+        });
+      };
+      update();
+      ScrollTrigger.create({ trigger: section, start: 'top bottom', end: 'bottom top', onUpdate: update, onRefresh: update });
+      cleanups.push(() => items.forEach(({ el }) => { el.style.opacity = ''; el.style.transform = ''; el.style.filter = ''; }));
+    });
+  }
+
   return () => cleanups.forEach(fn => fn());
 }

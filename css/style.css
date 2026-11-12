@@ -19,6 +19,7 @@
   --error: #E8A48F;
   --error-on-cream: #A1381F;
 
+  --font-display: 'Cormorant Garamond', 'Frank Ruhl Libre', Georgia, serif;
   --font-serif: 'Frank Ruhl Libre', 'David', 'Times New Roman', serif;
   --font-sans: 'Heebo', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
 
@@ -118,8 +119,8 @@ html.lenis, html.lenis body { height: auto; }
 .preloader__name { display: grid; justify-items: center; gap: 22px; color: var(--text); }
 .pre__mark { width: 76px; height: 76px; }
 .pre__text { display: grid; justify-items: center; gap: 10px; }
-.pre__word { font: 300 clamp(34px, 5vw, 56px)/1 var(--font-serif); letter-spacing: -0.01em; }
-.pre__tag { font: 400 11px/1 var(--font-sans); letter-spacing: .32em; color: var(--sand); }
+.pre__word { font: 300 clamp(30px, 5vw, 56px)/1 var(--font-display); letter-spacing: .25em; margin-inline-end: -.25em; text-transform: uppercase; }
+.pre__tag { font: 400 9px/1 var(--font-sans); letter-spacing: .35em; margin-inline-end: -.35em; color: var(--gold); }
 .preloader__line { position: relative; display: block; width: min(220px, 50vw); height: 1px; background: rgba(184,148,90,.22); }
 .preloader__fill { position: absolute; inset: 0; background: var(--gold); transform: scaleX(0); transform-origin: right center; }
 
@@ -272,11 +273,11 @@ section { position: relative; }
   color: var(--text); text-decoration: none;
 }
 .logo__mark, .pre__mark { width: 40px; height: 40px; flex: none; display: block; }
-.logo__mark text, .pre__mark text { font-family: var(--font-serif); font-weight: 300; fill: currentColor; }
+.logo__mark text, .pre__mark text { font-family: var(--font-display); font-weight: 300; fill: currentColor; }
 .logo__ring, .pre__ring { fill: none; stroke: var(--gold); stroke-width: 1; vector-effect: non-scaling-stroke; }
 .logo__text { display: grid; gap: 5px; }
-.logo__name { font: 300 24px/1 var(--font-serif); letter-spacing: -0.01em; }
-.logo__tag { font: 400 9px/1 var(--font-sans); letter-spacing: .32em; color: var(--sand); }
+.logo__name { font: 300 24px/1 var(--font-display); letter-spacing: .25em; text-transform: uppercase; }
+.logo__tag { font: 400 9px/1 var(--font-sans); letter-spacing: .35em; text-transform: uppercase; color: var(--gold); }
 .site-nav ul { display: flex; gap: clamp(18px, 3vw, 48px); }
 .site-nav a {
   position: relative; display: inline-block; padding-block: 8px;
@@ -290,11 +291,11 @@ section { position: relative; }
 .site-nav a:hover::after, .site-nav a:focus-visible::after { transform: scaleX(1); }
 @media (max-width: 479px) {
   .logo { gap: 9px; }
-  .logo__mark { width: 32px; height: 32px; }
-  .logo__name { font-size: 20px; }
+  .logo__mark { display: none; }   /* no room at 375px: the wordmark carries the brand */
+  .logo__name { font-size: 18px; letter-spacing: .2em; white-space: nowrap; }
   .logo__tag { display: none; }   /* too small to read here; the monogram + name carry it */
   .site-nav ul { gap: 16px; }
-  .site-nav a { font-size: 14px; letter-spacing: 0; }
+  .site-nav a { font-size: 14px; letter-spacing: 0; white-space: nowrap; }
 }
 
 /* =========================================================
@@ -326,9 +327,13 @@ section { position: relative; }
   text-align: center; padding-inline: var(--gutter);
 }
 .hero__title {
-  font-size: clamp(56px, 10vw, 160px);
+  font-family: var(--font-display);
+  font-weight: 300;
+  text-transform: uppercase;
+  font-size: clamp(44px, 10vw, 160px);
   line-height: 1;
-  letter-spacing: -0.025em;
+  letter-spacing: .25em;
+  padding-inline-start: .25em;   /* balances the trailing letter-spacing so the wordmark stays centred */
   color: var(--text);
   text-shadow: 0 2px 40px rgba(14,13,11,.35);
 }
