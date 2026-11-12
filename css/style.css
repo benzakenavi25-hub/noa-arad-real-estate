@@ -308,6 +308,11 @@ section { position: relative; }
 /* Portrait screens get entrance-door-mobile.jpg (see <picture> in index.html): match its placeholder. */
 @media (max-aspect-ratio: 4/5) {
   .hero__layer--door { background-image: url(../images/opt/entrance-door-mobile-lqip.webp) !important; }
+  [style*="entrance-hall-lqip"] { background-image: url(../images/opt/entrance-hall-mobile-lqip.webp) !important; }
+  [style*="living-room-lqip"] { background-image: url(../images/opt/living-room-mobile-lqip.webp) !important; }
+  [style*="dining-kitchen-lqip"] { background-image: url(../images/opt/dining-kitchen-mobile-lqip.webp) !important; }
+  [style*="master-bedroom-lqip"] { background-image: url(../images/opt/master-bedroom-mobile-lqip.webp) !important; }
+  [style*="villa-pool-sunset-lqip"] { background-image: url(../images/opt/villa-pool-sunset-mobile-lqip.webp) !important; }
 }
 .hero__layer--hall img { transform-origin: center center; }
 .hero__title .word-mask, .hero__title > div { padding-block: .08em; }

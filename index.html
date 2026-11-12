@@ -29,7 +29,8 @@
 
   <link rel="preload" as="image" type="image/webp" imagesrcset="images/opt/entrance-door-mobile-768.webp 768w, images/opt/entrance-door-mobile-1280.webp 1280w" imagesizes="100vw" media="(max-aspect-ratio: 4/5)" fetchpriority="high">
   <link rel="preload" as="image" type="image/webp" imagesrcset="images/opt/entrance-door-1280.webp 1280w, images/opt/entrance-door-2560.webp 2560w" imagesizes="100vw" media="not all and (max-aspect-ratio: 4/5)" fetchpriority="high">
-  <link rel="preload" as="image" type="image/webp" imagesrcset="images/opt/entrance-hall-1280.webp 1280w, images/opt/entrance-hall-2560.webp 2560w" imagesizes="100vw">
+  <link rel="preload" as="image" type="image/webp" imagesrcset="images/opt/entrance-hall-mobile-768.webp 768w, images/opt/entrance-hall-mobile-1280.webp 1280w" imagesizes="100vw" media="(max-aspect-ratio: 4/5)">
+  <link rel="preload" as="image" type="image/webp" imagesrcset="images/opt/entrance-hall-1280.webp 1280w, images/opt/entrance-hall-2560.webp 2560w" imagesizes="100vw" media="not all and (max-aspect-ratio: 4/5)">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"></noscript>
@@ -78,6 +79,8 @@
         </div>
         <div class="hero__layer hero__layer--hall" style="background-image:url(images/opt/entrance-hall-lqip.webp)">
           <picture>
+            <source media="(max-aspect-ratio: 4/5)" type="image/webp" srcset="images/opt/entrance-hall-mobile-768.webp 768w, images/opt/entrance-hall-mobile-1280.webp 1280w" sizes="100vw" width="941" height="1672">
+            <source media="(max-aspect-ratio: 4/5)" srcset="images/entrance-hall-mobile.jpg" width="941" height="1672">
             <source type="image/webp" srcset="images/opt/entrance-hall-1280.webp 1280w, images/opt/entrance-hall-2560.webp 2560w" sizes="100vw">
             <img src="images/entrance-hall.jpg" width="1672" height="941" alt="מבואה סימטרית בגובה כפול הנפתחת אל הבריכה" decoding="async">
           </picture>
@@ -99,7 +102,9 @@
     <section class="story" id="story" aria-labelledby="story-title">
       <div class="story__bg" aria-hidden="true" style="background-image:url(images/opt/entrance-hall-lqip.webp)">
         <picture>
-          <source type="image/webp" srcset="images/opt/entrance-hall-1280.webp 1280w, images/opt/entrance-hall-2560.webp 2560w" sizes="100vw">
+          <source media="(max-aspect-ratio: 4/5)" type="image/webp" srcset="images/opt/entrance-hall-mobile-768.webp 768w, images/opt/entrance-hall-mobile-1280.webp 1280w" sizes="100vw" width="941" height="1672">
+            <source media="(max-aspect-ratio: 4/5)" srcset="images/entrance-hall-mobile.jpg" width="941" height="1672">
+            <source type="image/webp" srcset="images/opt/entrance-hall-1280.webp 1280w, images/opt/entrance-hall-2560.webp 2560w" sizes="100vw">
           <img src="images/entrance-hall.jpg" width="1672" height="941" alt="" loading="lazy" decoding="async">
         </picture>
       </div>
@@ -145,7 +150,9 @@
           <li class="tour__panel">
             <div class="tour__media" style="background-image:url(images/opt/living-room-lqip.webp)">
               <picture>
-                <source type="image/webp" srcset="images/opt/living-room-1280.webp 1280w, images/opt/living-room-2560.webp 2560w" sizes="100vw">
+                <source media="(max-aspect-ratio: 4/5)" type="image/webp" srcset="images/opt/living-room-mobile-768.webp 768w, images/opt/living-room-mobile-1280.webp 1280w" sizes="100vw" width="941" height="1672">
+            <source media="(max-aspect-ratio: 4/5)" srcset="images/living-room-mobile.jpg" width="941" height="1672">
+            <source type="image/webp" srcset="images/opt/living-room-1280.webp 1280w, images/opt/living-room-2560.webp 2560w" sizes="100vw">
                 <img src="images/living-room.jpg" width="1536" height="864" alt="סלון משפחתי עם קיר אבן טבעית, רהיטי עץ אגוז ואור שקיעה" loading="lazy" decoding="async">
               </picture>
             </div>
@@ -158,7 +165,9 @@
           <li class="tour__panel">
             <div class="tour__media" style="background-image:url(images/opt/dining-kitchen-lqip.webp)">
               <picture>
-                <source type="image/webp" srcset="images/opt/dining-kitchen-1280.webp 1280w, images/opt/dining-kitchen-2560.webp 2560w" sizes="100vw">
+                <source media="(max-aspect-ratio: 4/5)" type="image/webp" srcset="images/opt/dining-kitchen-mobile-768.webp 768w, images/opt/dining-kitchen-mobile-1280.webp 1280w" sizes="100vw" width="941" height="1672">
+            <source media="(max-aspect-ratio: 4/5)" srcset="images/dining-kitchen-mobile.jpg" width="941" height="1672">
+            <source type="image/webp" srcset="images/opt/dining-kitchen-1280.webp 1280w, images/opt/dining-kitchen-2560.webp 2560w" sizes="100vw">
                 <img src="images/dining-kitchen.jpg" width="1672" height="941" alt="מטבח ופינת אוכל עם שולחן ארוך וויטרינה הפונה לבריכה" loading="lazy" decoding="async">
               </picture>
             </div>
@@ -171,7 +180,9 @@
           <li class="tour__panel">
             <div class="tour__media" style="background-image:url(images/opt/master-bedroom-lqip.webp)">
               <picture>
-                <source type="image/webp" srcset="images/opt/master-bedroom-1280.webp 1280w, images/opt/master-bedroom-2560.webp 2560w" sizes="100vw">
+                <source media="(max-aspect-ratio: 4/5)" type="image/webp" srcset="images/opt/master-bedroom-mobile-768.webp 768w, images/opt/master-bedroom-mobile-1280.webp 1280w" sizes="100vw" width="941" height="1671">
+            <source media="(max-aspect-ratio: 4/5)" srcset="images/master-bedroom-mobile.jpg" width="941" height="1671">
+            <source type="image/webp" srcset="images/opt/master-bedroom-1280.webp 1280w, images/opt/master-bedroom-2560.webp 2560w" sizes="100vw">
                 <img src="images/master-bedroom.jpg" width="1672" height="941" alt="סוויטת הורים מוארת עם חלונות אל עצי זית" loading="lazy" decoding="async">
               </picture>
             </div>
@@ -353,7 +364,9 @@
     <section class="finale" id="contact" aria-labelledby="finale-title">
       <div class="finale__media" style="background-image:url(images/opt/villa-pool-sunset-lqip.webp)">
         <picture>
-          <source type="image/webp" srcset="images/opt/villa-pool-sunset-1280.webp 1280w, images/opt/villa-pool-sunset-2560.webp 2560w" sizes="100vw">
+          <source media="(max-aspect-ratio: 4/5)" type="image/webp" srcset="images/opt/villa-pool-sunset-mobile-768.webp 768w, images/opt/villa-pool-sunset-mobile-1280.webp 1280w" sizes="100vw" width="941" height="1671">
+            <source media="(max-aspect-ratio: 4/5)" srcset="images/villa-pool-sunset-mobile.jpg" width="941" height="1671">
+            <source type="image/webp" srcset="images/opt/villa-pool-sunset-1280.webp 1280w, images/opt/villa-pool-sunset-2560.webp 2560w" sizes="100vw">
           <img src="images/villa-pool-sunset.jpg" width="1672" height="941" alt="וילה עם בריכה באור שקיעה" loading="lazy" decoding="async">
         </picture>
       </div>
