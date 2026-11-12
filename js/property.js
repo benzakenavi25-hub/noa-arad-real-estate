@@ -2,7 +2,6 @@
 
 import { loadProperties, formatPrice, formatNumber, escapeHTML, pictureHTML, lqipStyle, loadDeferred } from './listings.js';
 import { createMap, LOCATIONS } from './map.js';
-import { initCursor } from './sections.js';
 import { prefersReducedMotion } from './motion.js';
 
 const WHATSAPP = '972500000000';
@@ -54,7 +53,7 @@ function propertyHTML(p, { sold }) {
       <ul class="pgallery__strip" tabindex="0" aria-label="תמונות הנכס – גלילה אופקית">
         ${gallery.map((g, i) => `
           <li class="pgallery__item">
-            <button type="button" class="pgallery__btn" data-lb-open="${i}" data-cursor="צפייה">
+            <button type="button" class="pgallery__btn" data-lb-open="${i}">
               <span class="visually-hidden">הגדלת התמונה: </span>
               <span class="pgallery__media" style="${lqipStyle(g.file)}">${pictureHTML(g.file, g.alt, { sizes: '(min-width: 1024px) 60vw, 86vw', deferred: true })}</span>
               <span class="pgallery__num" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>
@@ -247,7 +246,7 @@ async function init() {
   }
 
   // This module loads async (it renders before the libraries arrive).
-  // Map, smooth scroll and cursor need Leaflet / Lenis / GSAP, so they wait for the page load.
+  // Map and smooth scroll need Leaflet / Lenis, so they wait for the page load.
   if (document.readyState !== 'complete') await new Promise(r => window.addEventListener('load', r, { once: true }));
 
   // Small map with the city marker.
@@ -264,12 +263,9 @@ async function init() {
     mapEl?.closest('.pmap')?.classList.add('pmap--nomap');
   }
 
-  // Motion: smooth scroll + cursor.
+  // Motion: smooth scroll.
   if (!reduce && window.Lenis) {
     lenis = new window.Lenis({ lerp: 0.1, autoRaf: true });
-  }
-  if (!reduce && window.gsap && window.matchMedia('(min-width: 1024px) and (hover: hover) and (pointer: fine)').matches) {
-    initCursor(window.gsap);
   }
 }
 

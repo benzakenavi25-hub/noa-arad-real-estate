@@ -165,11 +165,21 @@ section { position: relative; }
 }
 
 /* ---------- City marquee (decorative) ---------- */
-.marquee { overflow: hidden; padding-block: clamp(32px, 6vw, 88px); background: var(--ink); user-select: none; }
+.marquee { overflow: hidden; padding-block: 32px; background: var(--ink); user-select: none; }
+@media (min-width: 768px) { .marquee { padding-block: 48px; } }
+/* Band: two full-width gold hairlines (drawn from the centre by JS via --line; static without JS) */
+.marquee__band { position: relative; padding-block: 24px; }
+.marquee__band::before, .marquee__band::after {
+  content: ''; position: absolute; inset-inline: 0; height: 1px;
+  background: rgba(184, 148, 90, .4);
+  transform-origin: center; transform: scaleX(var(--line, 1));
+}
+.marquee__band::before { inset-block-start: 0; }
+.marquee__band::after { inset-block-end: 0; }
 .marquee__track { display: flex; width: max-content; will-change: transform; }
 .marquee__group { display: flex; flex: none; align-items: center; white-space: nowrap; }
 .marquee__group span {
-  font: 300 clamp(80px, 14vw, 220px)/1.15 var(--font-serif);
+  font: 300 clamp(56px, 9vw, 140px)/1.1 var(--font-serif);
   color: transparent; -webkit-text-stroke: 1px rgba(184, 148, 90, .35);
 }
 .marquee__group i {
@@ -959,9 +969,6 @@ body:has(.page) .site-header { background: rgba(14, 13, 11, .8); -webkit-backdro
   .lightbox__nav { inset-block-start: auto; inset-block-end: 64px; translate: none; width: 44px; height: 44px; }
   .lightbox__figure { padding-block-end: 124px; }
 }
-/* The dialog sits in the top layer, above the custom cursor, so the native cursor returns inside it. */
-.has-cursor.lightbox-open, .has-cursor.lightbox-open .lightbox { cursor: auto !important; }
-.has-cursor.lightbox-open .lightbox button { cursor: pointer !important; }
 
 /* =========================================================
    Motion states (phase 4). `.motion` is set on <html> by JS
@@ -1008,32 +1015,6 @@ body:has(.page) .site-header { background: rgba(14, 13, 11, .8); -webkit-backdro
 
 /* Finale */
 .finale__media img { transform-origin: center 60%; }
-
-/* ---------- Custom cursor (fine pointers only, created by JS) ---------- */
-.cursor-dot, .cursor-ring {
-  position: fixed; inset-block-start: 0; left: 0; z-index: 1500;
-  pointer-events: none; border-radius: 50%;
-  translate: -50% -50%;
-  opacity: 0; transition: opacity .4s;
-}
-.has-cursor.cursor-on .cursor-dot, .has-cursor.cursor-on .cursor-ring { opacity: 1; }
-.cursor-dot { width: 6px; height: 6px; background: var(--gold); }
-.cursor-ring {
-  width: 38px; height: 38px;
-  display: grid; place-items: center;
-  border: 1px solid var(--gold);
-  transition: opacity .4s, width .5s var(--ease-out), height .5s var(--ease-out), background-color .4s, border-color .4s;
-}
-.cursor-ring__label {
-  font: 500 12px/1 var(--font-sans); letter-spacing: .14em; color: var(--ink);
-  opacity: 0; transition: opacity .3s;
-}
-.cursor-ring.is-hover { width: 68px; height: 68px; background: rgba(184, 148, 90, .12); }
-.cursor-ring.is-view { width: 96px; height: 96px; background: var(--gold); }
-.cursor-ring.is-view .cursor-ring__label { opacity: 1; }
-.cursor-ring.is-text { width: 4px; height: 4px; border-color: transparent; }
-.has-cursor.cursor-view .cursor-dot { opacity: 0; }
-.has-cursor, .has-cursor a, .has-cursor button, .has-cursor label, .has-cursor .leaflet-container, .has-cursor .leaflet-interactive { cursor: none !important; }
 
 /* =========================================================
    Phone crops: keep the important part of each photo on screen

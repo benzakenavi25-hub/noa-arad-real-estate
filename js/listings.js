@@ -61,7 +61,7 @@ function saleCardHTML(p, { featured = false } = {}) {
   const tag = featured ? 'div' : 'li';
   const sizes = featured ? '(min-width: 1024px) 1320px, 100vw' : '(min-width: 1024px) 50vw, 100vw';
   return `
-    <${tag} class="card${featured ? ' card--featured' : ''}" data-cursor="צפייה">
+    <${tag} class="card${featured ? ' card--featured' : ''}">
       <a class="card__link" href="property.html?id=${encodeURIComponent(p.id)}">
         <div class="card__media" style="${lqipStyle(p.image)}">
           <div class="card__px">${pictureHTML(p.image, `${p.title}, ${p.city}`, { sizes })}</div>

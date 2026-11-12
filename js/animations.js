@@ -1,6 +1,6 @@
 // Scroll animations (GSAP + ScrollTrigger + SplitText + Lenis).
 // This file: smooth scroll, preloader, global scroll UI and the hero "through the door" sequence.
-// Sections 4.2–4.9 and the custom cursor live in sections.js.
+// Sections 4.2–4.9 live in sections.js.
 
 import { sectionAnimations } from './sections.js';
 import { prefersReducedMotion, REDUCE_QUERY } from './motion.js';

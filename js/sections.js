@@ -1,4 +1,4 @@
-// Section animations (4.2–4.9) + custom cursor.
+// Section animations (4.2–4.9).
 // Called from animations.js inside gsap.matchMedia(), never with reduced motion.
 // Everything hidden here is hidden by JS, so the page stays complete without it.
 
@@ -256,6 +256,12 @@ export function sectionAnimations({ gsap, ScrollTrigger, SplitText, desktop }) {
       running = on;
       on ? gsap.ticker.add(tick) : gsap.ticker.remove(tick);
     };
+    // Hairlines draw in from the centre when the band enters the screen.
+    gsap.set(marquee, { '--line': 0 });
+    gsap.to(marquee, {
+      '--line': 1, duration: 1.4, ease: 'power3.out',
+      scrollTrigger: { trigger: marquee, start: 'top 85%', once: true },
+    });
     measure();
     ScrollTrigger.addEventListener('refresh', measure);
     const st = ScrollTrigger.create({
@@ -397,61 +403,5 @@ export function sectionAnimations({ gsap, ScrollTrigger, SplitText, desktop }) {
       .from($('.finale__details', finale), { autoAlpha: 0, ease: 'none', duration: .18 }, .78);
   }
 
-  /* ---------------------------------------------------------
-     Custom cursor (desktop + fine pointer only)
-     --------------------------------------------------------- */
-  if (desktop && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    cleanups.push(initCursor(gsap));
-  }
-
   return () => cleanups.forEach(fn => fn());
-}
-
-/* =========================================================
-   Custom cursor: gold dot + lagging ring
-   ========================================================= */
-export function initCursor(gsap) {
-  const root = document.documentElement;
-  const dot = Object.assign(document.createElement('div'), { className: 'cursor-dot' });
-  const ring = Object.assign(document.createElement('div'), { className: 'cursor-ring' });
-  const label = Object.assign(document.createElement('span'), { className: 'cursor-ring__label' });
-  [dot, ring].forEach(el => el.setAttribute('aria-hidden', 'true'));
-  ring.append(label);
-  document.body.append(ring, dot);
-  root.classList.add('has-cursor');
-
-  const dotX = gsap.quickTo(dot, 'x', { duration: .12, ease: 'power3.out' });
-  const dotY = gsap.quickTo(dot, 'y', { duration: .12, ease: 'power3.out' });
-  const ringX = gsap.quickTo(ring, 'x', { duration: .55, ease: 'power3.out' });
-  const ringY = gsap.quickTo(ring, 'y', { duration: .55, ease: 'power3.out' });
-
-  const onMove = e => {
-    root.classList.add('cursor-on');
-    dotX(e.clientX); dotY(e.clientY);
-    ringX(e.clientX); ringY(e.clientY);
-  };
-  const onOver = e => {
-    const t = e.target instanceof Element ? e.target : null;
-    const view = t?.closest('[data-cursor]');
-    const text = !view && t?.closest('input, textarea, select');
-    const hover = !view && !text && t?.closest('a, button, label, img, .leaflet-marker-icon');
-    label.textContent = view ? view.dataset.cursor : '';
-    ring.classList.toggle('is-view', !!view);
-    ring.classList.toggle('is-text', !!text);
-    ring.classList.toggle('is-hover', !!hover);
-    root.classList.toggle('cursor-view', !!view);
-  };
-  const onLeave = () => root.classList.remove('cursor-on');
-
-  window.addEventListener('mousemove', onMove, { passive: true });
-  document.addEventListener('mouseover', onOver, { passive: true });
-  document.documentElement.addEventListener('mouseleave', onLeave);
-
-  return () => {
-    window.removeEventListener('mousemove', onMove);
-    document.removeEventListener('mouseover', onOver);
-    document.documentElement.removeEventListener('mouseleave', onLeave);
-    root.classList.remove('has-cursor', 'cursor-on', 'cursor-view');
-    dot.remove(); ring.remove();
-  };
 }
