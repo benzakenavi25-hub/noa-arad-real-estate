@@ -115,11 +115,11 @@ html.lenis, html.lenis body { height: auto; }
   clip-path: inset(0);
 }
 .preloader__inner { display: grid; justify-items: center; gap: 28px; }
-.preloader__name {
-  font-family: var(--font-serif); font-weight: 300;
-  font-size: clamp(34px, 5vw, 64px); line-height: 1; letter-spacing: -0.01em;
-  color: var(--text);
-}
+.preloader__name { display: grid; justify-items: center; gap: 22px; color: var(--text); }
+.pre__mark { width: 76px; height: 76px; }
+.pre__text { display: grid; justify-items: center; gap: 10px; }
+.pre__word { font: 300 clamp(34px, 5vw, 56px)/1 var(--font-serif); letter-spacing: -0.01em; }
+.pre__tag { font: 400 11px/1 var(--font-sans); letter-spacing: .32em; color: var(--sand); }
 .preloader__line { position: relative; display: block; width: min(220px, 50vw); height: 1px; background: rgba(184,148,90,.22); }
 .preloader__fill { position: absolute; inset: 0; background: var(--gold); transform: scaleX(0); transform-origin: right center; }
 
@@ -163,6 +163,26 @@ section { position: relative; }
   transform-origin: right center;   /* draws from inline-start in RTL */
   margin-block-start: 40px;
 }
+
+/* ---------- City marquee (decorative) ---------- */
+.marquee { overflow: hidden; padding-block: clamp(32px, 6vw, 88px); background: var(--ink); user-select: none; }
+.marquee__track { display: flex; width: max-content; will-change: transform; }
+.marquee__group { display: flex; flex: none; align-items: center; white-space: nowrap; }
+.marquee__group span {
+  font: 300 clamp(80px, 14vw, 220px)/1.15 var(--font-serif);
+  color: transparent; -webkit-text-stroke: 1px rgba(184, 148, 90, .35);
+}
+.marquee__group i {
+  flex: none; width: clamp(14px, 2.2vw, 34px); height: clamp(14px, 2.2vw, 34px); border-radius: 50%;
+  background: var(--gold); margin-inline: clamp(24px, 3.6vw, 56px);
+}
+
+/* "Ink fill" headings (class added by JS only, so reduced motion shows plain headings) */
+.ink-head::after {
+  content: ''; display: block; width: 64px; height: 1px; margin-block-start: .35em;
+  background: var(--accent); transform-origin: right center; transform: scaleX(var(--rule, 0));
+}
+.ink-word { display: inline-block; will-change: opacity; }
 
 .section-head { margin-block-end: clamp(56px, 7vw, 104px); }
 .section-head h2 { max-width: 14ch; }
@@ -238,11 +258,15 @@ section { position: relative; }
   display: flex; align-items: center; justify-content: space-between; gap: 24px;
 }
 .logo {
-  display: inline-flex; align-items: baseline; gap: 10px;
-  font-family: var(--font-serif); font-weight: 300; font-size: 26px; line-height: 1;
-  color: var(--text); text-decoration: none; letter-spacing: -0.01em;
+  display: inline-flex; align-items: center; gap: 12px;
+  color: var(--text); text-decoration: none;
 }
-.logo::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); transform: translateY(-2px); }
+.logo__mark, .pre__mark { width: 40px; height: 40px; flex: none; display: block; }
+.logo__mark text, .pre__mark text { font-family: var(--font-serif); font-weight: 300; fill: currentColor; }
+.logo__ring, .pre__ring { fill: none; stroke: var(--gold); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.logo__text { display: grid; gap: 5px; }
+.logo__name { font: 300 24px/1 var(--font-serif); letter-spacing: -0.01em; }
+.logo__tag { font: 400 9px/1 var(--font-sans); letter-spacing: .32em; color: var(--sand); }
 .site-nav ul { display: flex; gap: clamp(18px, 3vw, 48px); }
 .site-nav a {
   position: relative; display: inline-block; padding-block: 8px;
@@ -255,8 +279,10 @@ section { position: relative; }
 }
 .site-nav a:hover::after, .site-nav a:focus-visible::after { transform: scaleX(1); }
 @media (max-width: 479px) {
-  .logo { font-size: 21px; }
-  .logo::after { display: none; }
+  .logo { gap: 9px; }
+  .logo__mark { width: 32px; height: 32px; }
+  .logo__name { font-size: 20px; }
+  .logo__tag { display: none; }   /* too small to read here; the monogram + name carry it */
   .site-nav ul { gap: 16px; }
   .site-nav a { font-size: 14px; letter-spacing: 0; }
 }
@@ -268,6 +294,10 @@ section { position: relative; }
 .hero__stage { position: relative; height: 100%; overflow: hidden; }
 .hero__layer { position: absolute; inset: 0; }
 .hero__layer--hall { visibility: hidden; }
+/* Portrait screens get entrance-door-mobile.jpg (see <picture> in index.html): match its placeholder. */
+@media (max-aspect-ratio: 4/5) {
+  .hero__layer--door { background-image: url(../images/opt/entrance-door-mobile-lqip.webp) !important; }
+}
 .hero__layer--hall img { transform-origin: center center; }
 .hero__title .word-mask, .hero__title > div { padding-block: .08em; }
 .hero__layer--door::after {
@@ -385,6 +415,10 @@ section { position: relative; }
 .tour__caption h3 { font-size: clamp(40px, 5.4vw, 88px); line-height: 1; letter-spacing: -0.02em; margin-block-end: 18px; color: var(--text); }
 .tour__caption p:not(.label) { font-size: clamp(17px, 1.4vw, 21px); color: var(--text); max-width: 32ch; }
 .tour__caption .btn { margin-block-start: 36px; }
+@media (max-width: 1023.98px) {
+  /* Clear of the floating WhatsApp button zone (bottom 80px), even though the button hides over the tour. */
+  .tour__caption { inset-block-end: max(104px, 12vh); }
+}
 
 /* Desktop horizontal mode is switched on by JS (phase 4) */
 .tour.is-horizontal .tour__track { display: flex; width: max-content; }
@@ -399,12 +433,12 @@ section { position: relative; }
 .tour.is-horizontal .tour__hud { display: flex; }
 .tour__current { color: var(--gold); }
 .tour__progress { position: relative; flex: 1; height: 1px; background: rgba(237,230,218,.2); }
-.tour__progress-bar { position: absolute; inset: 0; background: var(--gold); transform-origin: right center; transform: scaleX(.25); }
+.tour__progress-bar { position: absolute; inset: 0; background: var(--gold); transform-origin: right center; transform: scaleX(.3333)   /* 1 of 3 panels; JS updates it */; }
 
 /* =========================================================
    4. Listings
    ========================================================= */
-.listings, .sold, .map-section, .testimonials, .valuation { padding-block: var(--section-pad); }
+.listings, .sold, .map-section, .valuation { padding-block: var(--section-pad); }
 .sold { padding-block-start: 0; }
 
 .card { position: relative; }
@@ -454,10 +488,19 @@ section { position: relative; }
 }
 
 .listings__grid { display: grid; gap: 72px var(--col-gap); }
-@media (min-width: 768px) { .listings__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (min-width: 1200px) {
+/* Mobile 1 column · tablet 2 · desktop (≥1024px) 3 in one row. */
+@media (min-width: 768px) {
+  .listings__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* Odd count on 2 columns: the last card spans the row instead of sitting alone half-width. */
+  .listings__grid > .card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .listings__grid > .card:last-child:nth-child(odd) .card__media { aspect-ratio: 21 / 9; }
+}
+@media (min-width: 1024px) {
   .listings__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; }
-  .listings__grid > .card:nth-child(3n+2) { margin-block-start: 96px; }  /* gentle stagger */
+  /* Back to normal cells: a 3-column row has no orphan to fix (that was a 2-column rule). */
+  .listings__grid > .card:last-child:nth-child(odd) { grid-column: auto; }
+  .listings__grid > .card:last-child:nth-child(odd) .card__media { aspect-ratio: 4 / 3; }
+  .listings__grid > .card:nth-child(3n+2) { margin-block-start: 96px; }  /* gentle stagger on the middle card */
 }
 
 .load-error { color: var(--error); }
@@ -509,9 +552,15 @@ section { position: relative; }
 .map-section { background: var(--ink-2); }
 .map {
   position: relative;
-  height: clamp(440px, 68vh, 720px);
+  height: 300px;
   background: #0b0a09;
-  border: 1px solid var(--line);
+  border: 1px solid var(--line);      /* hairline frame */
+}
+.sharon__grid { display: grid; gap: 40px; }
+.sharon__grid .map { order: -1; }     /* phones: map above the quote */
+@media (min-width: 1024px) {
+  .sharon__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 45%); gap: var(--col-gap); align-items: center; }
+  .sharon__grid .map { order: 0; height: 520px; }
 }
 .map.leaflet-container { background: #0b0a09; font-family: var(--font-sans); }
 /* OpenStreetMap tiles turned into a warm dark map (used while CARTO needs an API key) */
@@ -547,6 +596,18 @@ section { position: relative; }
   0%   { transform: scale(.35); opacity: .9; }
   100% { transform: scale(1.6); opacity: 0; }
 }
+.gold-marker--feature .gold-marker__dot { inset: 6px; }
+.gold-marker__ring { position: absolute; inset: 0; border-radius: 50%; border: 1px solid var(--gold); box-shadow: 0 0 0 2px rgba(14,13,11,.6); }
+.gold-marker::after {
+  content: ''; position: absolute; inset: -4px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(207,175,122,.75), rgba(207,175,122,0) 70%);
+  opacity: 0; pointer-events: none;
+}
+.gold-marker.is-pulsing::after { animation: marker-burst 1.1s var(--ease-out) 2; }
+@keyframes marker-burst {
+  0%   { transform: scale(.4); opacity: .95; }
+  100% { transform: scale(3.2); opacity: 0; }
+}
 .map-popup .leaflet-popup-content-wrapper {
   background: var(--ink); color: var(--text);
   border: 1px solid var(--line); border-radius: 0; box-shadow: 0 18px 40px rgba(0,0,0,.45);
@@ -560,29 +621,18 @@ section { position: relative; }
 /* =========================================================
    7. Testimonials
    ========================================================= */
-.testimonials { text-align: center; }
-.testimonials::before {
-  content: ''; display: block; width: 1px; height: clamp(56px, 8vw, 96px); margin: 0 auto clamp(48px, 6vw, 80px);
-  background: linear-gradient(to bottom, rgba(184,148,90,0), var(--gold));
-}
+.testimonials { min-width: 0; }
 .testimonials__stage { display: grid; }
-.testimonial {
-  grid-area: 1 / 1;
-  margin: 0;
-  opacity: 0; visibility: hidden;
-  transition: opacity .9s var(--ease-out), visibility 0s linear .9s;
-}
-.testimonial.is-active { opacity: 1; visibility: visible; transition: opacity .9s var(--ease-out) .15s, visibility 0s; }
+.testimonial { grid-area: 1 / 1; margin: 0; opacity: 0; visibility: hidden; }   /* swapped by JS; never cross-fades, so quotes cannot overlap */
+.testimonial.is-active { opacity: 1; visibility: visible; }
 .testimonial blockquote { margin: 0; }
 .testimonial blockquote p {
   font-family: var(--font-serif); font-weight: 300;
-  font-size: clamp(30px, 4.2vw, 64px); line-height: 1.22; letter-spacing: -0.01em;
-  color: var(--text);
-  max-width: 22ch; margin-inline: auto;      /* ch of the quote font, not the body font */
+  font-size: clamp(28px, 3.1vw, 48px); line-height: 1.25; letter-spacing: -0.01em;
+  color: var(--text); max-width: 22ch;
 }
-@media (min-width: 1024px) { .testimonial blockquote p { max-width: 28ch; } }
-.testimonial figcaption { margin-block-start: 40px; color: var(--gold); font-size: 14px; font-weight: 500; letter-spacing: .16em; }
-.testimonials__dots { display: flex; justify-content: center; gap: 6px; margin-block-start: 56px; }
+.testimonial figcaption { margin-block-start: 32px; color: var(--gold); font-size: 14px; font-weight: 500; letter-spacing: .16em; }
+.testimonials__dots { display: flex; gap: 6px; margin-block-start: 40px; margin-inline-start: -10px; }
 .testimonials__dots button {
   position: relative; width: 36px; height: 36px; padding: 0;
   border: 0; background: none; cursor: pointer;
@@ -668,10 +718,18 @@ section { position: relative; }
 .finale__media { position: absolute; inset: 0; z-index: -1; }
 .finale__media::after {
   content: ''; position: absolute; inset: 0;
-  background: linear-gradient(to top, var(--ink) 0%, rgba(14,13,11,.7) 30%, rgba(14,13,11,.15) 65%, rgba(14,13,11,.35) 100%);
+  /* Only a bottom fade into the footer. The text gets its own shade (.finale__content::before),
+     so the sunset sky and the warm windows stay untouched. */
+  background: linear-gradient(to top, rgba(14,13,11,.94) 0%, rgba(14,13,11,.5) 14%, rgba(14,13,11,0) 34%);
 }
-.finale__content { text-align: center; padding-block: 30vh clamp(64px, 10vh, 120px); }
-.finale__title { font-size: clamp(48px, 8vw, 136px); max-width: 12ch; margin: 0 auto clamp(40px, 5vw, 64px); color: var(--text); }
+.finale__content { position: relative; text-align: center; margin-block-start: 30vh; padding-block-end: clamp(64px, 10vh, 120px); }
+/* A soft shade that follows the text block on every screen size (WCAG AA behind the headline). */
+.finale__content::before {
+  content: ''; position: absolute; z-index: -1; inset: -16% -22% 0;
+  background: radial-gradient(closest-side, rgba(14,13,11,.8) 0%, rgba(14,13,11,.72) 45%, rgba(14,13,11,.38) 75%, rgba(14,13,11,0) 100%);
+  pointer-events: none;
+}
+.finale__title { font-size: clamp(48px, 8vw, 136px); max-width: 12ch; margin: 0 auto clamp(40px, 5vw, 64px); color: var(--text); text-shadow: 0 2px 28px rgba(14,13,11,.55); }
 .finale__details {
   margin-block-start: clamp(40px, 5vw, 64px);
   display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 14px;
@@ -701,11 +759,31 @@ section { position: relative; }
 .site-footer__links a:hover { color: var(--gold-soft); text-decoration: underline; }
 .site-footer__demo { color: var(--gold); font-size: 13px; letter-spacing: .08em; }
 
+/* "Built by" credit (footer row + finale line) */
+.built-by { font-size: 13px; font-weight: 300; line-height: 1.6; color: var(--sand); }
+.built-by a { color: inherit; text-decoration: none; display: inline-block; }
+.built-by__text {
+  background: linear-gradient(var(--gold), var(--gold)) no-repeat right bottom / 0 1px;
+  padding-block-end: 2px;
+  transition: background-size .6s var(--ease-out);
+}
+.built-by a:hover .built-by__text, .built-by a:focus-visible .built-by__text { background-size: 100% 1px; }
+.built-by__arrow { color: var(--gold); display: inline-block; transition: transform .4s var(--ease-out); }
+.built-by a:hover .built-by__arrow { transform: translateX(-4px); }
+.built-by--footer { padding-block-start: 20px; border-block-start: 1px solid var(--line-faint); }
+.built-by--footer, .built-by--finale { text-align: center; }
+.built-by--finale { margin-block-start: clamp(28px, 4vw, 44px); text-shadow: 0 1px 12px rgba(14,13,11,.6); }
+@media (min-width: 1024px) { .built-by--footer { grid-column: 1 / -1; } }
+@media (prefers-reduced-motion: reduce) { .built-by__text, .built-by__arrow { transition: none; } }
+
 /* =========================================================
    Floating WhatsApp
    ========================================================= */
+/* Phones/tablets: bottom-LEFT (inline-end). Right-aligned Hebrew lines start at the right edge and
+   rarely reach the left one, so this corner is almost always free of text (measured: 2 of 56 scroll
+   stops had text there, versus 15 on the right). Desktop keeps the inline-start corner (below). */
 .wa-float {
-  position: fixed; inset-block-end: max(20px, env(safe-area-inset-bottom)); inset-inline-start: 20px; z-index: 90;
+  position: fixed; inset-block-end: max(20px, env(safe-area-inset-bottom)); inset-inline-end: 20px; z-index: 90;
   width: 60px; height: 60px; border-radius: 50%;
   display: grid; place-items: center;
   background: var(--gold); color: var(--ink);
@@ -717,7 +795,7 @@ section { position: relative; }
 .js .wa-float { opacity: 0; visibility: hidden; transform: scale(.6); transition: opacity .6s var(--ease-out), transform .8s var(--ease-out), visibility 0s linear .6s, background-color .4s; }
 .js .wa-float.is-visible { opacity: 1; visibility: visible; transform: scale(1); transition: opacity .6s var(--ease-out), transform .8s var(--ease-out), visibility 0s, background-color .4s; }
 .js .wa-float.is-visible:hover { transform: scale(1.06); }
-@media (min-width: 1024px) { .wa-float { inset-block-end: 32px; inset-inline-start: 32px; width: 64px; height: 64px; } }
+@media (min-width: 1024px) { .wa-float { inset-block-end: 32px; inset-inline-start: 32px; inset-inline-end: auto; width: 64px; height: 64px; } }
 
 /* =========================================================
    Simple text pages (accessibility / privacy / terms)
@@ -922,12 +1000,8 @@ body:has(.page) .site-header { background: rgba(14, 13, 11, .8); -webkit-backdro
   .motion .card__px { inset-block: -9%; }
 }
 
-/* Dawn: testimonials + valuation share one tweened theme */
+/* Dawn: the valuation section tweens from night to day */
 .dawn.is-dawn { background: var(--bg); color: var(--fg-2); }
-.dawn.is-dawn .testimonial blockquote p { color: var(--fg); }
-.dawn.is-dawn .testimonial figcaption { color: var(--accent); }
-.dawn.is-dawn .testimonials__dots button::after { border-color: var(--accent); }
-.dawn.is-dawn .testimonials__dots button[aria-selected="true"]::after { background: var(--accent); }
 .dawn.is-dawn .btn { --btn-fg-hover: var(--bg); }
 .dawn.is-dawn .btn--ghost { --btn-fg-hover: var(--accent); }
 .dawn.is-dawn :focus-visible { outline-color: var(--accent); }
@@ -1006,6 +1080,7 @@ body:has(.page) .site-header { background: rgba(14, 13, 11, .8); -webkit-backdro
 }
 .reduce-motion .hero__scroll-line::after { transform: none; }              /* static gold line instead of the pulse */
 .reduce-motion .gold-marker__pulse { display: none; }
+.reduce-motion .testimonial { transition: none !important; }                /* instant swap: quotes never cross-fade */
 .reduce-motion .phero__media img,
 .reduce-motion .phero__content > *,
 .reduce-motion .pinfo > *,

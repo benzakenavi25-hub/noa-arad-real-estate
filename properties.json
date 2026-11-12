@@ -8,10 +8,41 @@
       "rooms": 7,
       "builtArea": 420,
       "plotArea": 750,
-      "features": ["בריכה", "תקרה כפולה", "סוויטת הורים", "מעלית"],
+      "features": [
+        "בריכה",
+        "תקרה כפולה",
+        "סוויטת הורים",
+        "מעלית"
+      ],
       "description": "וילת אבן חדשה עם טרקלין בגובה כפול, ויטרינות מלאות לגינה ובריכה מחוממת.",
       "image": "villa-exterior.jpg",
-      "featured": true
+      "featured": true,
+      "gallery": [
+        {
+          "file": "entrance-door.jpg",
+          "alt": "דלת הכניסה מעץ אגוז בחזית הווילה"
+        },
+        {
+          "file": "entrance-hall.jpg",
+          "alt": "הטרקלין בגובה כפול הנפתח אל הבריכה"
+        },
+        {
+          "file": "living-room.jpg",
+          "alt": "הסלון המשפחתי עם קיר אבן טבעית"
+        },
+        {
+          "file": "dining-kitchen.jpg",
+          "alt": "המטבח ופינת האוכל מול הבריכה"
+        },
+        {
+          "file": "master-bedroom.jpg",
+          "alt": "סוויטת ההורים מול עצי הזית"
+        },
+        {
+          "file": "villa-pool-sunset.jpg",
+          "alt": "הבריכה והחזית האחורית בשקיעה"
+        }
+      ]
     },
     {
       "id": "herzliya-penthouse",
@@ -21,9 +52,27 @@
       "rooms": 5,
       "builtArea": 260,
       "terraceArea": 180,
-      "features": ["נוף לים", "בריכה פרטית", "מרפסת 180 מ\"ר"],
+      "features": [
+        "נוף לים",
+        "בריכה פרטית",
+        "מרפסת 180 מ\"ר"
+      ],
       "description": "מרפסת ענקית עם בריכה פרטית ונוף פתוח למרינה ולים.",
-      "image": "herzliya-penthouse.jpg"
+      "image": "herzliya-penthouse.jpg",
+      "gallery": [
+        {
+          "file": "herzliya-penthouse.jpg",
+          "alt": "המרפסת והבריכה הפרטית מול המרינה"
+        },
+        {
+          "file": "herzliya-penthouse-living.jpg",
+          "alt": "הסלון הנפתח למרפסת, לבריכה ולנוף המרינה"
+        },
+        {
+          "file": "herzliya-penthouse-bedroom.jpg",
+          "alt": "חדר השינה עם חלון מהרצפה לתקרה ונוף לים ולמרינה"
+        }
+      ]
     },
     {
       "id": "savyon-white",
@@ -33,9 +82,27 @@
       "rooms": 7,
       "builtArea": 450,
       "plotArea": 1000,
-      "features": ["בריכה", "דונם מגרש", "קומה אחת+"],
+      "features": [
+        "בריכה",
+        "דונם מגרש",
+        "קומה אחת+"
+      ],
       "description": "קווים נקיים, זכוכית מקיר לקיר ובריכה ארוכה בין דקלים בוגרים.",
-      "image": "savyon.jpg"
+      "image": "savyon.jpg",
+      "gallery": [
+        {
+          "file": "savyon.jpg",
+          "alt": "הווילה הלבנה והבריכה בין הדקלים"
+        },
+        {
+          "file": "savyon-living.jpg",
+          "alt": "הסלון בגובה כפול מול הבריכה והדקלים"
+        },
+        {
+          "file": "savyon-kitchen.jpg",
+          "alt": "המטבח הלבן עם אי שיש ארוך ונוף לדקלים"
+        }
+      ]
     },
     {
       "id": "raanana-garden",
@@ -45,9 +112,27 @@
       "rooms": 5,
       "builtArea": 160,
       "gardenArea": 220,
-      "features": ["גינה 220 מ\"ר", "פרגולה", "חניה כפולה"],
+      "features": [
+        "גינה 220 מ\"ר",
+        "פרגולה",
+        "חניה כפולה"
+      ],
       "description": "דירת גן מוארת עם פרגולה, עץ לימון ויציאה ישירה מהסלון לדשא.",
-      "image": "raanana-garden.jpg"
+      "image": "raanana-garden.jpg",
+      "gallery": [
+        {
+          "file": "raanana-garden.jpg",
+          "alt": "דירת הגן עם הפרגולה והדשא"
+        },
+        {
+          "file": "raanana-garden-living.jpg",
+          "alt": "הסלון הנפתח לגינה, לפרגולה ולעץ הלימון"
+        },
+        {
+          "file": "raanana-garden-kitchen.jpg",
+          "alt": "המטבח ופינת האוכל מול הגינה והפרגולה"
+        }
+      ]
     }
   ],
   "sold": [

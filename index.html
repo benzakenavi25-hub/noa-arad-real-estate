@@ -27,7 +27,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;500&family=Heebo:wght@300;400;500&display=swap">
 
-  <link rel="preload" as="image" type="image/webp" imagesrcset="images/opt/entrance-door-1280.webp 1280w, images/opt/entrance-door-2560.webp 2560w" imagesizes="100vw" fetchpriority="high">
+  <link rel="preload" as="image" type="image/webp" imagesrcset="images/opt/entrance-door-mobile-768.webp 768w, images/opt/entrance-door-mobile-1280.webp 1280w" imagesizes="100vw" media="(max-aspect-ratio: 4/5)" fetchpriority="high">
+  <link rel="preload" as="image" type="image/webp" imagesrcset="images/opt/entrance-door-1280.webp 1280w, images/opt/entrance-door-2560.webp 2560w" imagesizes="100vw" media="not all and (max-aspect-ratio: 4/5)" fetchpriority="high">
   <link rel="preload" as="image" type="image/webp" imagesrcset="images/opt/entrance-hall-1280.webp 1280w, images/opt/entrance-hall-2560.webp 2560w" imagesizes="100vw">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" media="print" onload="this.media='all'">
@@ -39,7 +40,7 @@
 <body>
   <div class="preloader" id="preloader" aria-hidden="true">
     <div class="preloader__inner">
-      <p class="preloader__name">נועה ארד</p>
+      <div class="preloader__name"><svg class="pre__mark" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><circle class="pre__ring" cx="20" cy="20" r="19.5"/><text x="20" y="28.5" text-anchor="middle" font-size="25">נ</text></svg><span class="pre__text"><span class="pre__word">נועה ארד</span><span class="pre__tag">נדל"ן פרטי</span></span></div>
       <span class="preloader__line"><span class="preloader__fill"></span></span>
     </div>
   </div>
@@ -50,7 +51,7 @@
   <!-- ===== Header ===== -->
   <header class="site-header" id="top">
     <div class="site-header__inner">
-      <a class="logo" href="#top" aria-label="נועה ארד – לראש העמוד">נועה ארד</a>
+      <a class="logo" href="#top" aria-label="נועה ארד נדל&quot;ן פרטי – לראש העמוד"><svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><circle class="logo__ring" cx="20" cy="20" r="19.5"/><text x="20" y="28.5" text-anchor="middle" font-size="25">נ</text></svg><span class="logo__text"><span class="logo__name">נועה ארד</span><span class="logo__tag">נדל"ן פרטי</span></span></a>
       <nav class="site-nav" aria-label="ניווט ראשי">
         <ul>
           <li><a href="#listings">נכסים</a></li>
@@ -68,6 +69,9 @@
       <div class="hero__stage">
         <div class="hero__layer hero__layer--door" style="background-image:url(images/opt/entrance-door-lqip.webp)">
           <picture>
+            <!-- Portrait screens: a 9:16 shot of the same facade (its door is measured separately: DOOR_MOBILE in js/animations.js) -->
+            <source media="(max-aspect-ratio: 4/5)" type="image/webp" srcset="images/opt/entrance-door-mobile-768.webp 768w, images/opt/entrance-door-mobile-1280.webp 1280w" sizes="100vw" width="941" height="1672">
+            <source media="(max-aspect-ratio: 4/5)" srcset="images/entrance-door-mobile.jpg" width="941" height="1672">
             <source type="image/webp" srcset="images/opt/entrance-door-1280.webp 1280w, images/opt/entrance-door-2560.webp 2560w" sizes="100vw">
             <img src="images/entrance-door.jpg" width="1672" height="941" alt="חזית סימטרית של וילת אבן, דלת כניסה גבוהה מעץ אגוז במרכז" fetchpriority="high" decoding="async">
           </picture>
@@ -139,19 +143,6 @@
       <div class="tour__viewport">
         <ol class="tour__track">
           <li class="tour__panel">
-            <div class="tour__media" style="background-image:url(images/opt/entrance-hall-lqip.webp)">
-              <picture>
-                <source type="image/webp" srcset="images/opt/entrance-hall-1280.webp 1280w, images/opt/entrance-hall-2560.webp 2560w" sizes="100vw">
-                <img src="images/entrance-hall.jpg" width="1672" height="941" alt="טרקלין בגובה כפול עם ויטרינות אל הגינה והבריכה" loading="lazy" decoding="async">
-              </picture>
-            </div>
-            <div class="tour__caption">
-              <p class="label">01 — הטרקלין</p>
-              <h3>הטרקלין</h3>
-              <p>חלל בגובה כפול שנפתח ישר אל הגינה.</p>
-            </div>
-          </li>
-          <li class="tour__panel">
             <div class="tour__media" style="background-image:url(images/opt/living-room-lqip.webp)">
               <picture>
                 <source type="image/webp" srcset="images/opt/living-room-1280.webp 1280w, images/opt/living-room-2560.webp 2560w" sizes="100vw">
@@ -159,7 +150,7 @@
               </picture>
             </div>
             <div class="tour__caption">
-              <p class="label">02 — הסלון המשפחתי</p>
+              <p class="label">01 — הסלון המשפחתי</p>
               <h3>הסלון המשפחתי</h3>
               <p>אבן טבעית, עץ אגוז ושקיעה בכל ערב.</p>
             </div>
@@ -172,7 +163,7 @@
               </picture>
             </div>
             <div class="tour__caption">
-              <p class="label">03 — המטבח ופינת האוכל</p>
+              <p class="label">02 — המטבח ופינת האוכל</p>
               <h3>המטבח ופינת האוכל</h3>
               <p>שולחן לשנים-עשר, ויטרינה לבריכה.</p>
             </div>
@@ -185,7 +176,7 @@
               </picture>
             </div>
             <div class="tour__caption">
-              <p class="label">04 — סוויטת ההורים</p>
+              <p class="label">03 — סוויטת ההורים</p>
               <h3>סוויטת ההורים</h3>
               <p>בוקר שמתחיל בעצי זית.</p>
               <a class="btn" href="property.html?id=achuza-raanana"><span>לעמוד הנכס ←</span></a>
@@ -193,7 +184,7 @@
           </li>
         </ol>
         <div class="tour__hud" aria-hidden="true">
-          <span class="tour__count"><span class="tour__current">01</span> / 04</span>
+          <span class="tour__count"><span class="tour__current">01</span> / 03</span>
           <span class="tour__progress"><span class="tour__progress-bar"></span></span>
         </div>
       </div>
@@ -212,6 +203,14 @@
         <ul class="listings__grid" data-listings="grid"></ul>
       </div>
     </section>
+
+    <!-- ===== City marquee (decorative) ===== -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <div class="marquee__group"><span>רעננה</span><i></i><span>הרצליה פיתוח</span><i></i><span>כפר שמריהו</span><i></i><span>סביון</span><i></i><span>כוכב יאיר</span><i></i><span>תל אביב</span><i></i></div>
+        <div class="marquee__group"><span>רעננה</span><i></i><span>הרצליה פיתוח</span><i></i><span>כפר שמריהו</span><i></i><span>סביון</span><i></i><span>כוכב יאיר</span><i></i><span>תל אביב</span><i></i></div>
+      </div>
+    </div>
 
     <!-- ===== 5. Sold wall ===== -->
     <section class="sold" id="sold" aria-labelledby="sold-title">
@@ -232,39 +231,37 @@
         <header class="section-head">
           <p class="label">אזורי פעילות</p>
           <h2 id="map-title">השרון, עסקה אחרי עסקה</h2>
-          <p class="section-head__sub">רעננה · הרצליה פיתוח · כפר שמריהו · סביון · כוכב יאיר · תל אביב</p>
+          <p class="section-head__sub">מה אומרים הלקוחות, והערים שבהן נחתמו העסקאות.</p>
           <span class="hairline" aria-hidden="true"></span>
         </header>
-        <div class="map" id="sharon-map" role="region" aria-label="מפת אזורי הפעילות בשרון"></div>
+        <div class="sharon__grid">
+          <div class="testimonials" id="testimonials" aria-roledescription="קרוסלה" aria-label="המלצות לקוחות">
+            <div class="testimonials__stage" aria-live="polite">
+              <figure class="testimonial is-active" id="t-1" data-city="רעננה" role="group" aria-roledescription="המלצה" aria-label="1 מתוך 3">
+                <blockquote><p>"נועה מכרה לנו את הבית תוך חודש, מעל המחיר שקיווינו. הליווי היה אישי מהיום הראשון."</p></blockquote>
+                <figcaption>— משפחת לוין, רעננה</figcaption>
+              </figure>
+              <figure class="testimonial" id="t-2" data-city="הרצליה פיתוח" role="group" aria-roledescription="המלצה" aria-label="2 מתוך 3" aria-hidden="true" inert>
+                <blockquote><p>"חיפשנו פנטהאוז שנה שלמה. נועה מצאה לנו אותו בשלושה שבועות, עוד לפני שהוא עלה לשיווק."</p></blockquote>
+                <figcaption>— דנה ועמית ש., הרצליה פיתוח</figcaption>
+              </figure>
+              <figure class="testimonial" id="t-3" data-city="כפר שמריהו" role="group" aria-roledescription="המלצה" aria-label="3 מתוך 3" aria-hidden="true" inert>
+                <blockquote><p>"מקצועית, דיסקרטית ותמיד זמינה. בדיוק מה שצריך כשמוכרים בית של חיים שלמים."</p></blockquote>
+                <figcaption>— יורם ב., כפר שמריהו</figcaption>
+              </figure>
+            </div>
+            <div class="testimonials__dots" role="tablist" aria-label="בחירת המלצה">
+              <button type="button" role="tab" aria-selected="true" aria-controls="t-1" aria-label="המלצה 1"></button>
+              <button type="button" role="tab" aria-selected="false" aria-controls="t-2" aria-label="המלצה 2" tabindex="-1"></button>
+              <button type="button" role="tab" aria-selected="false" aria-controls="t-3" aria-label="המלצה 3" tabindex="-1"></button>
+            </div>
+          </div>
+          <div class="map" id="sharon-map" role="region" aria-label="מפת אזורי הפעילות בשרון"></div>
+        </div>
       </div>
     </section>
 
     <div class="dawn">
-    <!-- ===== 7. Testimonials ===== -->
-    <section class="testimonials" id="testimonials" aria-labelledby="testimonials-title" aria-roledescription="קרוסלה">
-      <div class="container">
-        <h2 class="visually-hidden" id="testimonials-title">המלצות</h2>
-        <div class="testimonials__stage" aria-live="polite">
-          <figure class="testimonial is-active" id="t-1" role="group" aria-roledescription="המלצה" aria-label="1 מתוך 3">
-            <blockquote><p>"נועה מכרה לנו את הבית תוך חודש, מעל המחיר שקיווינו. הליווי היה אישי מהיום הראשון."</p></blockquote>
-            <figcaption>— משפחת לוין, רעננה</figcaption>
-          </figure>
-          <figure class="testimonial" id="t-2" role="group" aria-roledescription="המלצה" aria-label="2 מתוך 3" aria-hidden="true" inert>
-            <blockquote><p>"חיפשנו פנטהאוז שנה שלמה. נועה מצאה לנו אותו בשלושה שבועות, עוד לפני שהוא עלה לשיווק."</p></blockquote>
-            <figcaption>— דנה ועמית ש., הרצליה פיתוח</figcaption>
-          </figure>
-          <figure class="testimonial" id="t-3" role="group" aria-roledescription="המלצה" aria-label="3 מתוך 3" aria-hidden="true" inert>
-            <blockquote><p>"מקצועית, דיסקרטית ותמיד זמינה. בדיוק מה שצריך כשמוכרים בית של חיים שלמים."</p></blockquote>
-            <figcaption>— יורם ב., כפר שמריהו</figcaption>
-          </figure>
-        </div>
-        <div class="testimonials__dots" role="tablist" aria-label="בחירת המלצה">
-          <button type="button" role="tab" aria-selected="true" aria-controls="t-1" aria-label="המלצה 1"></button>
-          <button type="button" role="tab" aria-selected="false" aria-controls="t-2" aria-label="המלצה 2" tabindex="-1"></button>
-          <button type="button" role="tab" aria-selected="false" aria-controls="t-3" aria-label="המלצה 3" tabindex="-1"></button>
-        </div>
-      </div>
-    </section>
 
     <!-- ===== 8. Valuation form ===== -->
     <section class="valuation theme-cream" id="valuation" aria-labelledby="valuation-title">
@@ -367,6 +364,7 @@
           <span>רחוב אחוזה, רעננה</span>
           <span class="finale__note">(פרטים להמחשה)</span>
         </address>
+        <p class="built-by built-by--finale"><a href="https://wa.me/972532415558?text=%D7%94%D7%99%D7%99%20%D7%90%D7%91%D7%A8%D7%94%D7%9D%2C%20%D7%A8%D7%90%D7%99%D7%AA%D7%99%20%D7%90%D7%AA%20%D7%94%D7%90%D7%AA%D7%A8%20%D7%A9%D7%9C%20%D7%A0%D7%95%D7%A2%D7%94%20%D7%90%D7%A8%D7%93%20%D7%95%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%9C%20%D7%90%D7%AA%D7%A8%20%D7%9B%D7%96%D7%94" target="_blank" rel="noopener"><span class="built-by__text">האתר עוצב ונבנה ע"י אברהם בן זקן · רוצים אתר כזה לעסק שלכם?</span> <span class="built-by__arrow" aria-hidden="true">←</span></a></p>
       </div>
     </section>
   </main>
@@ -383,6 +381,7 @@
         </ul>
       </nav>
       <p class="site-footer__demo">אתר תצוגה – כל התכנים להמחשה בלבד</p>
+      <p class="built-by built-by--footer"><a href="https://wa.me/972532415558?text=%D7%94%D7%99%D7%99%20%D7%90%D7%91%D7%A8%D7%94%D7%9D%2C%20%D7%A8%D7%90%D7%99%D7%AA%D7%99%20%D7%90%D7%AA%20%D7%94%D7%90%D7%AA%D7%A8%20%D7%A9%D7%9C%20%D7%A0%D7%95%D7%A2%D7%94%20%D7%90%D7%A8%D7%93%20%D7%95%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%9C%20%D7%90%D7%AA%D7%A8%20%D7%9B%D7%96%D7%94" target="_blank" rel="noopener"><span class="built-by__text">האתר עוצב ונבנה ע"י אברהם בן זקן · רוצים אתר כזה לעסק שלכם?</span> <span class="built-by__arrow" aria-hidden="true">←</span></a></p>
     </div>
   </footer>
 

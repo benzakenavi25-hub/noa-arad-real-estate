@@ -39,6 +39,21 @@ export function sectionAnimations({ gsap, ScrollTrigger, SplitText, desktop }) {
     });
   };
 
+  /** "Ink fill": words start faint and fill to full colour one by one, scrubbed with scroll,
+   *  then a short gold rule draws in. DOM order is already the Hebrew reading order. */
+  function inkFill(h) {
+    if (!h) return;
+    const split = SplitText ? SplitText.create(h, { type: 'words', wordsClass: 'ink-word' }) : null;
+    if (!split) return;
+    h.classList.add('ink-head');
+    cleanups.push(() => { h.classList.remove('ink-head'); h.style.removeProperty('--rule'); });
+    gsap.timeline({
+      scrollTrigger: { trigger: h, start: 'top 85%', end: 'top 45%', scrub: true },
+    })
+      .fromTo(split.words, { opacity: .18 }, { opacity: 1, ease: 'none', duration: 1, stagger: 1 })
+      .fromTo(h, { '--rule': 0 }, { '--rule': 1, ease: 'none', duration: Math.max(1, split.words.length * .5) });
+  }
+
   const markIn = (el, start = 'top 86%') => ScrollTrigger.create({
     trigger: el, start, once: true, onEnter: () => el.classList.add('is-in'),
   });
@@ -57,7 +72,7 @@ export function sectionAnimations({ gsap, ScrollTrigger, SplitText, desktop }) {
     cleanups.push(() => bg.style.removeProperty('--dim'));
 
     fadeUp($('.label', story), { start: 'top 90%' });
-    revealLines($('.story__title', story));
+    inkFill($('.story__title', story));
     revealLines($('.story__subtitle', story), { delay: .15 });
     $$('.story__lines p', story).forEach((p, i) => revealLines(p, { trigger: $('.story__lines', story), start: 'top 82%', delay: i * .18 }));
 
@@ -89,7 +104,7 @@ export function sectionAnimations({ gsap, ScrollTrigger, SplitText, desktop }) {
      --------------------------------------------------------- */
   $$('.section-head, .tour__head').forEach(head => {
     fadeUp($('.label', head), { trigger: head });
-    revealLines($('h2', head), { trigger: head });
+    inkFill($('h2', head));
     fadeUp($('.section-head__sub', head), { trigger: head, delay: .3 });
     markIn(head);
     cleanups.push(() => head.classList.remove('is-in'));
@@ -215,6 +230,46 @@ export function sectionAnimations({ gsap, ScrollTrigger, SplitText, desktop }) {
   }
 
   /* ---------------------------------------------------------
+     City marquee: slow base drift, pushed by scroll velocity, easing back
+     --------------------------------------------------------- */
+  {
+    const marquee = $('.marquee');
+    const track = $('.marquee__track', marquee);
+    const group = $('.marquee__group', marquee);
+    const base = desktop ? 46 : 26;          // px/s; positive = +X, i.e. along the RTL reading direction
+    let x = 0, speed = base, loopW = 0;
+    const measure = () => { loopW = group.getBoundingClientRect().width; };
+    const velocitySource = ScrollTrigger.create({ start: 0, end: 'max' });
+
+    const tick = (time, dtMs) => {
+      const dt = Math.min(dtMs, 64) / 1000;
+      const target = base + gsap.utils.clamp(-1400, 1400, velocitySource.getVelocity()) * .32;
+      speed += (target - speed) * (1 - Math.exp(-dt * 3.2));     // ease back to base once scrolling stops
+      if (loopW) {
+        x = gsap.utils.wrap(0, loopW, x + speed * dt);
+        track.style.transform = `translate3d(${x.toFixed(2)}px,0,0)`;
+      }
+    };
+    let running = false;
+    const setRunning = on => {
+      if (on === running) return;
+      running = on;
+      on ? gsap.ticker.add(tick) : gsap.ticker.remove(tick);
+    };
+    measure();
+    ScrollTrigger.addEventListener('refresh', measure);
+    const st = ScrollTrigger.create({
+      trigger: marquee, start: 'top bottom', end: 'bottom top',
+      onToggle: self => setRunning(self.isActive),
+    });
+    cleanups.push(() => {
+      setRunning(false); st.kill(); velocitySource.kill();
+      ScrollTrigger.removeEventListener('refresh', measure);
+      track.style.transform = '';
+    });
+  }
+
+  /* ---------------------------------------------------------
      4.5 Sold wall
      --------------------------------------------------------- */
   {
@@ -250,7 +305,7 @@ export function sectionAnimations({ gsap, ScrollTrigger, SplitText, desktop }) {
     let done = false;
     const arm = () => {
       if (done) return;
-      const dots = $$('.gold-marker__dot', mapEl);
+      const dots = $$('.gold-marker__dot, .gold-marker__ring', mapEl);
       const pulses = $$('.gold-marker__pulse', mapEl);
       if (!dots.length) return;
       done = true;
@@ -266,26 +321,6 @@ export function sectionAnimations({ gsap, ScrollTrigger, SplitText, desktop }) {
     };
     arm();
     on(document, 'map:ready', arm);
-  }
-
-  /* ---------------------------------------------------------
-     4.7 Testimonials: line-by-line reveal for every quote
-     --------------------------------------------------------- */
-  {
-    const section = $('#testimonials');
-    const quotes = $$('.testimonial', section);
-    const splits = new Map(quotes.map(q => [q, splitLines($('blockquote p', q), { autoSplit: true })]));   // re-splits on resize
-    const show = (q, delay = .2) => {
-      const { lines } = splits.get(q);
-      gsap.fromTo(lines, { yPercent: 110 }, { yPercent: 0, duration: 1.2, ease: 'expo.out', stagger: .09, delay, overwrite: true });
-      gsap.fromTo($('figcaption', q), { autoAlpha: 0 }, { autoAlpha: 1, duration: 1, delay: delay + .45, overwrite: true });
-    };
-    const first = quotes.find(q => q.classList.contains('is-active')) || quotes[0];
-    gsap.set(splits.get(first).lines, { yPercent: 110 });
-    gsap.set($('figcaption', first), { autoAlpha: 0 });
-    ScrollTrigger.create({ trigger: section, start: 'top 65%', once: true, onEnter: () => show(first, 0) });
-    fadeUp($('.testimonials__dots', section), { trigger: section, start: 'top 65%', delay: .6, y: 0 });
-    on(document, 'testimonial:change', e => show(e.detail.el));
   }
 
   /* ---------------------------------------------------------

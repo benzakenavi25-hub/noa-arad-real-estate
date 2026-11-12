@@ -10,8 +10,11 @@ const range = (p, a, b) => clamp01((p - a) / (b - a));       // progress of p in
 const easeInOut = t => (t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
 const wait = ms => new Promise(r => setTimeout(r, ms));
 
-/** Door position inside entrance-door.jpg, as fractions of the source image. */
+/** Door (walnut leaf) position inside entrance-door.jpg, as fractions of the source image. */
 const DOOR = { x0: .429, x1: .569, y0: .232, y1: .706 };
+/** Same, inside entrance-door-mobile.jpg (941×1672 portrait, served when aspect ratio ≤ 4/5). */
+const DOOR_MOBILE = { x0: .423, x1: .579, y0: .322, y1: .498 };
+const PORTRAIT_HERO = '(max-aspect-ratio: 4/5)';   // must match the <source media> in index.html
 /** The hall starts to open when the door is at this fraction of "touching the viewport edge". */
 const REVEAL_LEAD = .82;
 
@@ -63,16 +66,94 @@ function initGlobalUI(gsap, ScrollTrigger) {
   const hero = document.getElementById('hero');
   const setProgress = progress ? gsap.quickSetter(progress, 'scaleX') : null;
 
+  // Sections the WhatsApp button must never sit on: the tour (full-screen photos with captions in
+  // the same corner) and the finale (it has its own WhatsApp CTA).
+  const noWa = [document.querySelector('.tour__viewport'), document.getElementById('contact')].filter(Boolean);
+  /** True when the button's corner of the screen is over one of those sections. */
+  const waBlocked = () => {
+    if (!wa) return false;
+    const r = wa.getBoundingClientRect();
+    const y = r.top + r.height / 2 || window.innerHeight - 50;
+    return noWa.some(el => {
+      const box = (el.parentElement?.classList.contains('pin-spacer') ? el.parentElement : el).getBoundingClientRect();
+      return box.top <= y && box.bottom >= y;
+    });
+  };
+
+  /** The button's resting box (ignores its show/hide scale), grown by a small safety margin. */
+  const waZone = () => {
+    const m = 10;
+    return { l: wa.offsetLeft - m, t: wa.offsetTop - m, r: wa.offsetLeft + wa.offsetWidth + m, b: wa.offsetTop + wa.offsetHeight + m };
+  };
+  const caretAt = (x, y) => {
+    if (document.caretRangeFromPoint) return document.caretRangeFromPoint(x, y);
+    const p = document.caretPositionFromPoint?.(x, y);
+    if (!p) return null;
+    const r = document.createRange(); r.setStart(p.offsetNode, p.offset); return r;
+  };
+  /**
+   * True when any visible text lies under the button. In RTL every line starts at the inline-start
+   * edge, exactly where the button sits, so headings and captions pass under it while scrolling.
+   * Samples a few points in the button's zone and checks the actual glyph boxes there.
+   */
+  const textUnder = () => {
+    if (!wa) return false;
+    const z = waZone();
+    // 4×4 grid (~20px apart): fine enough to catch small glyphs such as the map's "+ / −".
+    const f = [.12, .37, .63, .88];
+    const pts = f.flatMap(fx => f.map(fy => [z.l + (z.r - z.l) * fx, z.t + (z.b - z.t) * fy]));
+    const prev = wa.style.pointerEvents;
+    wa.style.pointerEvents = 'none';                 // hit-test what is underneath, not the button
+    try {
+      for (const [x, y] of pts) {
+        const range = caretAt(x, y);
+        const node = range?.startContainer;
+        if (!node || node.nodeType !== 3 || !/\S/.test(node.data)) continue;
+        if (getComputedStyle(node.parentElement).visibility === 'hidden') continue;
+        const off = range.startOffset;
+        const glyph = document.createRange();
+        glyph.setStart(node, Math.max(0, off - 1));
+        glyph.setEnd(node, Math.min(node.length, off + 1));
+        for (const r of glyph.getClientRects()) {
+          if (r.right > z.l && r.left < z.r && r.bottom > z.t && r.top < z.b) return true;
+        }
+      }
+    } finally {
+      wa.style.pointerEvents = prev;
+    }
+    return false;
+  };
+
+  const pastHeroNow = () => {
+    if (!hero) return true;
+    // The hero is pinned, so "after the hero" = its pin spacer has left the top of the viewport.
+    const box = (hero.parentElement?.classList.contains('pin-spacer') ? hero.parentElement : hero).getBoundingClientRect();
+    return box.bottom <= (header?.offsetHeight || 0) + 1;
+  };
+  const wantWa = () => pastHeroNow() && !waBlocked() && !textUnder();
+  // Hide at once; show again only after the spot has stayed clear briefly (no flicker between lines).
+  let showTimer = null;
+  const syncWa = () => {
+    if (!wa) return;
+    if (!wantWa()) {
+      clearTimeout(showTimer); showTimer = null;
+      wa.classList.remove('is-visible');
+    } else if (!wa.classList.contains('is-visible') && !showTimer) {
+      showTimer = setTimeout(() => { showTimer = null; if (wantWa()) wa.classList.add('is-visible'); }, 300);
+    }
+  };
+  // Content can also change under a still page (testimonials, lazy images, resize).
+  setInterval(syncWa, 700);
+  window.addEventListener('resize', syncWa);
+
   ScrollTrigger.create({
     start: 0,
     end: 'max',
     onUpdate(self) {
       setProgress?.(self.progress);
+      syncWa();
       if (!hero) return;
-      // The hero is pinned, so "after the hero" = its pin spacer has left the top of the viewport.
-      const box = (hero.parentElement?.classList.contains('pin-spacer') ? hero.parentElement : hero).getBoundingClientRect();
-      const pastHero = box.bottom <= (header?.offsetHeight || 0) + 1;
-      wa?.classList.toggle('is-visible', pastHero);
+      const pastHero = pastHeroNow();
       if (header) {
         const hide = pastHero && self.direction === 1 && !header.contains(document.activeElement);
         header.classList.toggle('is-hidden', hide);
@@ -191,13 +272,20 @@ function heroSequence(gsap, ScrollTrigger, pinLength) {
 
   function measure() {
     const W = stage.clientWidth, H = stage.clientHeight;
-    const nw = doorImg.naturalWidth || 1672, nh = doorImg.naturalHeight || 941;
+    // Use the constants of whichever file the <picture> is showing. Before it has loaded,
+    // fall back to the media query that decides which file it will be.
+    const portrait = doorImg.naturalWidth
+      ? doorImg.naturalHeight > doorImg.naturalWidth
+      : window.matchMedia(PORTRAIT_HERO).matches;
+    const D = portrait ? DOOR_MOBILE : DOOR;
+    const nw = doorImg.naturalWidth || (portrait ? 941 : 1672);
+    const nh = doorImg.naturalHeight || (portrait ? 1672 : 941);
     const s = Math.max(W / nw, H / nh);                 // object-fit: cover
     const w = nw * s, h = nh * s;
     const ox = (W - w) / 2, oy = (H - h) / 2;           // object-position: center
     g.W = W; g.H = H;
-    g.l = ox + DOOR.x0 * w; g.r = ox + DOOR.x1 * w;
-    g.t = oy + DOOR.y0 * h; g.b = oy + DOOR.y1 * h;
+    g.l = ox + D.x0 * w; g.r = ox + D.x1 * w;
+    g.t = oy + D.y0 * h; g.b = oy + D.y1 * h;
     g.cx = (g.l + g.r) / 2; g.cy = (g.t + g.b) / 2;
     // Scale at which the door first touches a viewport edge.
     const contain = Math.min(W / (g.r - g.l), H / (g.b - g.t));
@@ -266,6 +354,9 @@ function heroSequence(gsap, ScrollTrigger, pinLength) {
   measure();
   render(0);
   syncStory(0);
+  // The <picture> swaps files when the viewport crosses 4/5 (rotation, resize): re-measure on every load.
+  const onDoorLoad = () => { measure(); render(state.p); };
+  doorImg.addEventListener('load', onDoorLoad);
 
   const tween = gsap.to(state, {
     p: 1,
@@ -290,6 +381,7 @@ function heroSequence(gsap, ScrollTrigger, pinLength) {
   });
 
   return () => {
+    doorImg.removeEventListener('load', onDoorLoad);
     tween.scrollTrigger?.kill();
     tween.kill();
     if (story) { story.classList.remove('is-continuous'); story.style.visibility = ''; }

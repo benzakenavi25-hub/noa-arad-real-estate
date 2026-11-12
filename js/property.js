@@ -7,18 +7,6 @@ import { prefersReducedMotion } from './motion.js';
 
 const WHATSAPP = '972500000000';
 
-/** Extra photos. Only the Achuza villa has a full gallery; other listings show their single image. */
-const GALLERIES = {
-  'achuza-raanana': [
-    { file: 'entrance-door.jpg', alt: 'דלת הכניסה מעץ אגוז בחזית הווילה' },
-    { file: 'entrance-hall.jpg', alt: 'הטרקלין בגובה כפול הנפתח אל הבריכה' },
-    { file: 'living-room.jpg', alt: 'הסלון המשפחתי עם קיר אבן טבעית' },
-    { file: 'dining-kitchen.jpg', alt: 'המטבח ופינת האוכל מול הבריכה' },
-    { file: 'master-bedroom.jpg', alt: 'סוויטת ההורים מול עצי הזית' },
-    { file: 'villa-pool-sunset.jpg', alt: 'הבריכה והחזית האחורית בשקיעה' },
-  ],
-};
-
 const main = document.getElementById('main');
 const reduce = prefersReducedMotion();
 let lenis = null;
@@ -52,7 +40,7 @@ function notFoundHTML() {
 }
 
 function propertyHTML(p, { sold }) {
-  const gallery = GALLERIES[p.id];
+  const gallery = p.gallery?.length ? p.gallery : null;
   const features = p.features?.length
     ? `<ul class="pills" aria-label="מאפייני הנכס">${p.features.map(f => `<li class="pill">${escapeHTML(f)}</li>`).join('')}</ul>`
     : '';
@@ -246,7 +234,7 @@ async function init() {
     }, { rootMargin: '400px 0px' });
     gio.observe(strip);
   }
-  initLightbox(GALLERIES[property.id]);
+  initLightbox(property.gallery || []);
 
   const heroImg = document.querySelector('.phero__media img');
   const ready = () => requestAnimationFrame(() => document.body.classList.add('is-ready'));
